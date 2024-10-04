@@ -1,11 +1,20 @@
 ﻿using HospitalAPI.Models;
-using Microsoft.EntityFrameworkCore;
+using MySql.Data.EntityFramework;
+using MySqlX.XDevAPI.Relational;
+using System.Data.Entity;
 
 namespace HospitalApi.Data
 {
-    public class ApplicationDbContext : DbContext
+    [DbConfigurationType(typeof(MySqlEFConfiguration))]
+    public partial class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        static ApplicationDbContext()
+        {
+            DbConfiguration.SetConfiguration(new MySqlEFConfiguration());
+            Database.SetInitializer<ApplicationDbContext>(null);
+        }
+        
+        public ApplicationDbContext() : base("ApplicationDbContext")
         {
         }
 
@@ -18,8 +27,7 @@ namespace HospitalApi.Data
         public DbSet<Pacient> Pacients { get; set; }
         public DbSet<Planta> Plantes { get; set; }
         public DbSet<User> Users { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Habitacio>()
             .HasOne(h => h.Planta)

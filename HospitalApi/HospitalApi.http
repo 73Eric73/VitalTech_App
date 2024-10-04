@@ -4,3 +4,41 @@ GET {{HospitalApi_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+<!--Config Section-->
+<configSections>  
+        <section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />  
+</configSections>
+
+<!--System Data and EntityFramework-->
+<system.data>  
+        <DbProviderFactories>  
+            <remove invariant="MySql.Data.MySqlClient" />  
+            <add name="MySQL Data Provider" invariant="MySql.Data.MySqlClient" description=".Net Framework Data Provider for MySQL" type="MySql.Data.MySqlClient.MySqlClientFactory, MySql.Data, Version=8.0.28, Culture=neutral, PublicKeyToken=c5687fc88969c44d" />  
+        </DbProviderFactories>  
+</system.data>  
+    <entityFramework codeConfigurationType="MySql.Data.Entity.MySqlEFConfiguration, MySql.Data.Entity.EF6">  
+        <defaultConnectionFactory type="MySql.Data.Entity.MySqlConnectionFactory, MySql.Data.Entity.EF6" />  
+        <providers>  
+            <provider invariantName="MySql.Data.MySqlClient" type="MySql.Data.MySqlClient.MySqlProviderServices, MySql.Data.Entity.EF6" />  
+        </providers>  
+    </entityFramework>
+
+    <!--Connection String and Run Time dependentAssembly-->
+    <connectionStrings>  
+        <remove name="ApplicationDbContext" />  
+        <add name="ApplicationDbContext" connectionString="server=bbpczpka6vx8mr9fleti-mysql.services.clever-cloud.com;port=3306;User Id=umpmnvoqgohqrlfq;password=Rrbt3C6b4GKiSCDS5DUz;Persist Security Info=True;database=bbpczpka6vx8mr9fleti;Convert Zero Datetime=True" providerName="MySql.Data.MySqlClient" />  
+    </connectionStrings>  
+  
+<runtime>  
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">  
+      <dependentAssembly>  
+        <assemblyIdentity name="EntityFramework" publicKeyToken="b77a5c561934e089" culture="neutral" />  
+        <bindingRedirect oldVersion="0.0.0.0-5.0.0.0" newVersion="6.0.0.0" />  
+      </dependentAssembly>  
+      <dependentAssembly>  
+        <assemblyIdentity name="MySql.Data" publicKeyToken="c5687fc88969c44d" culture="neutral" />  
+        <bindingRedirect oldVersion="0.0.0.0-8.0.28.0" newVersion="8.0.28.0" />  
+      </dependentAssembly>  
+  
+        </assemblyBinding>  
+    </runtime>

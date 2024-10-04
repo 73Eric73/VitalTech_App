@@ -1,9 +1,9 @@
 using HospitalAPI;
-using HospitalApi.Data;
-using Microsoft.EntityFrameworkCore;
+using MySql.Data.EntityFramework;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Data.Entity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,10 +16,12 @@ builder.Services.AddCors(opt => opt.AddDefaultPolicy(policy =>
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+// builder.Services.AddDbContext<ApplicationDbContext>(options =>
+// {
+//     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+// });
+
+DbConfiguration.SetConfiguration(new MySqlEFConfiguration()); 
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
