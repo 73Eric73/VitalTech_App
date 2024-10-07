@@ -27,7 +27,7 @@ export class RegistroHabitacionComponent {
         validators: [Validators.required, Validators.pattern(/^[12]$/)]
       }],
       plantaId:['', {
-        validators: [Validators.required, Validators.pattern(/^\d$/)],
+        validators: [Validators.required, Validators.pattern(/^\d{1}$/)],
         asyncValidators: [plantaidValidator(this.plantaService)],
       }]
     }, {
@@ -48,22 +48,25 @@ export class RegistroHabitacionComponent {
   //     complete: () => alert('Operació completada'),
   // });
 
-  this.http.post('http://localhost:5296/api/habitacio', habitacionData).subscribe({
-    next: response => {
+  this.http.post('http://localhost:5296/api/habitacio', habitacionData).subscribe(
+    (response) => {
       Swal.fire({
         icon: 'success',
         title: 'Habitación registrada',
         text: 'La habitación se ha registrado correctamente.'
       });
     },
-    error: error => {
+    (error) => {
+      if(error.status === 400 && error.error === "No es poden agregar més habitacions a aquesta planta."){
+        this.habitacionForm.setErrors({limiteCapacidad: true});
+      } else {
       Swal.fire({
         icon: 'error',
         title: 'Error',
         text: 'ERROR, campos no válidos.'
       });
     }
-
-});
+    }
+  )
   }
 }

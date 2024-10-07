@@ -201,9 +201,9 @@ namespace HospitalAPI.Controllers
         public static bool CheckTS(String ts)
         {
 
-            if (ts.Length != 15) return true;
+            if (ts.Length != 14) return true;
             
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < 14; i++)
             {
                 if (i < 4 && !char.IsLetter(ts[i])) return true;
                 if (i > 3 && !char.IsDigit(ts[i])) return true;

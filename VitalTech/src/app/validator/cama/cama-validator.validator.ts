@@ -105,6 +105,43 @@ export function camaOcupadaPaciente(ingresoService: IngresService): AsyncValidat
     };
   }
 
+  export function capacitatCamaHabitacion(camasService: CamasService, habitacionService: HabitacioService): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+        const habitacioId = control.value;
+
+    // Si no hay habitación seleccionada, no validar
+    if (!habitacioId) {
+      return of(null);
+    }
+
+    // Llamar al servicio para obtener las camas
+    return camasService.getLlits().pipe(
+      switchMap(camas => {
+        // Filtrar las camas que pertenecen a la habitación seleccionada
+        const camasRelacionadas = camas.filter(cama => cama.habitacioId === habitacioId);
+        
+        // Obtener la habitación correspondiente
+        return habitacionService.getHabitacio(habitacioId).pipe(
+          map(habitacion => {
+            if (!habitacion) {
+              return null; // La habitación no existe
+            }
+
+            // Comprobar si la capacidad se ha alcanzado
+            if (camasRelacionadas.length >= habitacion.capacitatLlits) {
+              return { limiteCapacidad: true };  // Devolver error si se alcanza la capacidad
+            }
+
+            return null; // Sin errores
+          }),
+          catchError(() => of(null)) // Manejar errores de la llamada
+        );
+      }),
+      catchError(() => of(null)) // Manejar errores de la llamada
+    );
+    }
+  }
+
 
 
 

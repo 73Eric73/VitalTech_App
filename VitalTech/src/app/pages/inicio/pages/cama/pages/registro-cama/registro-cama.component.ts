@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CamasService } from '../../../../../../service/camas.service';
-import { camaidValidator, codiLlitHabitacioValidator, habidValidator } from '../../../../../../validator/cama/cama-validator.validator';
+import { camaidValidator, capacitatCamaHabitacion, codiLlitHabitacioValidator, habidValidator } from '../../../../../../validator/cama/cama-validator.validator';
 import { HabitacioService } from '../../../../../../service/habitaciones.service';
 import Swal from 'sweetalert2';
 
@@ -29,7 +29,8 @@ export class RegistroCamaComponent {
         updateOn: 'blur'
       }]
     }, {
-      validator: codiLlitHabitacioValidator()
+      validator: [codiLlitHabitacioValidator()],
+
     });
   }
 
@@ -40,22 +41,28 @@ export class RegistroCamaComponent {
     }
     const llitData = this.llitForm.value;
     
-    this.http.post('http://localhost:5296/api/Llit', llitData).subscribe({
-      next: response => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Cama registrada',
-          text: 'La cama se ha registrado correctamente.'
-        });
+    this.http.post('http://localhost:5296/api/Llit', llitData).subscribe(
+      (response) => {
+          console.log('Cama registrada exitosamente', response);
+          Swal.fire({
+              icon: 'success',
+              title: 'Cama registrada',
+              text: 'La cama se ha registrado correctamente.'
+          });
       },
-      error: error => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'ERROR, campos no válidos.'
-        });
+      (error) => {
+          if (error.status === 400 && error.error === "No es poden afegir més llits a aquesta habitació.") {
+              this.llitForm.setErrors({ limiteCapacidad: true });
+          } else {
+              console.error('Error en el registro de la cama:', error);
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Error',
+                  text: 'ERROR, campos no válidos.'
+              });
+          }
       }
-    })
+  );
   }
 }
     

@@ -35,11 +35,14 @@
                 <label for="plantaId">ID de planta:<span style="color: red;">*</span></label>
                 <input type="number" id="plantaId" name="plantaId" formControlName="plantaId" required
                 [ngClass]="{'is-invalid': habitacionForm.get('plantaId')?.touched && habitacionForm.get('plantaId')?.invalid || 
-                habitacionForm.hasError('codiHabitacioPlantaMismatch')}">
+                habitacionForm.hasError('codiHabitacioPlantaMismatch') || habitacionForm.hasError('limiteCapacidad')}">
                 <div class="error-messages" *ngIf="habitacionForm.get('plantaId')?.touched  && habitacionForm.get('plantaId')?.invalid">
                     <small *ngIf="habitacionForm.get('plantaId')?.hasError('required')">Este campo es obligatorio</small>
                     <small *ngIf="habitacionForm.get('plantaId')?.hasError('pattern')">Construido por al menos un número</small>
                     <small *ngIf="habitacionForm.get('plantaId')?.hasError('plantaIdNotFound')">El ID no existe</small>
+                </div>
+                <div class="error-messages" *ngIf="habitacionForm.hasError('limiteCapacidad')">
+                    <small>La planta ya ha llegado a su límite de capacidad</small>
                 </div>
             </div>
             

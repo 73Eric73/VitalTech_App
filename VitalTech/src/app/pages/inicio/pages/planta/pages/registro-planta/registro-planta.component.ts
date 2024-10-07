@@ -32,6 +32,7 @@ export class RegistroPlantaComponent {
     if (plantaData.capacitatHabitacions === null || plantaData.capacitatHabitacions === ''){
       plantaData.capacitatHabitacions = 0;
     }
+    
     this.http.post('http://localhost:5296/api/Planta', plantaData).subscribe({
       next: response => {
         Swal.fire({

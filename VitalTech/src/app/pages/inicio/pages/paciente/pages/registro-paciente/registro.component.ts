@@ -44,10 +44,7 @@ export class RegistroComponent {
   }
 
   onSubmit() {
-    if(this.pacientForm.invalid){
-      this.pacientForm.markAllAsTouched();
-      return;
-    }
+    
     const pacienteData = this.pacientForm.value;
 
     this.http.post('http://localhost:5296/api/Pacient', pacienteData).subscribe({

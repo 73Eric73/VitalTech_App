@@ -22,11 +22,15 @@
                     <label for="habitacioId">ID habitación:<span style="color: red;">*</span></label>
                     <input type="number" id="habitacioId" ngModel name="habitacioId" formControlName = "habitacioId" required
                     [ngClass]="{'is-invalid': llitForm.get('habitacioId')?.touched && llitForm.get('habitacioId')?.invalid || 
-                llitForm.hasError('codiLlitHabitacioMismatch')}">
+                llitForm.hasError('codiLlitHabitacioMismatch') || llitForm.hasError('limiteCapacidad')}">
                     <div class="error-messages" *ngIf="llitForm.get('habitacioId')?.touched && llitForm.get('habitacioId')?.invalid">
                         <small *ngIf="llitForm.get('habitacioId')?.hasError('required')">Este campo es obligatorio</small>
                         <small *ngIf="llitForm.get('habitacioId')?.hasError('pattern')">Construido por 3 números</small>
                         <small *ngIf="llitForm.get('habitacioId')?.hasError('habitacionIdNotFound')">El ID no existe</small>
+                        
+                    </div>
+                    <div class="error-messages" *ngIf="llitForm.hasError('limiteCapacidad')">
+                        <small>La habitación ya ha llegado a su límite de capacidad</small>
                     </div>
                 </div>
             </div>

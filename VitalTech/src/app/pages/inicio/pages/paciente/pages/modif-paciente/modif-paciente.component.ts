@@ -30,7 +30,7 @@ export class ModifPacienteComponent {
         updateOn: 'blur'
       }],
       numSS: ['', {
-        validators: [Validators.required, Validators.maxLength(15), Validators.minLength(15), Validators.pattern(/^[A-Z]{4}\d{11}$/)],
+        validators: [Validators.required, Validators.maxLength(15), Validators.minLength(15), Validators.pattern(/^[A-Z]{4}\d{10}$/)],
         asyncValidators: [pacienteSSValidator(this.pacientService)],
         updateOn: 'blur'
       }],
@@ -54,7 +54,7 @@ export class ModifPacienteComponent {
 
   onUpdate(): void {
 
-    if(this.modiPacientForm.valid) {
+    
       const updatedPacient: Pacient = { ...this.modiPacientForm.getRawValue(), dni: this.pacientId };
       this.pacientService.putPacient(updatedPacient).subscribe({
 
@@ -84,6 +84,6 @@ export class ModifPacienteComponent {
       })
 
     }
-  }
+  
 
 }
