@@ -23,11 +23,12 @@ import { MatOption, MatSelectModule } from '@angular/material/select'; // Para l
 import { SharedModule } from '../../shared/shared.module';
 import { AdministradorSistemaComponent } from '../../../pages/inicio/pages/administrador-sistema/administrador-sistema.component';
 import { PlantesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/plantes/plantes.component'; 
+import { DialogFormularioConsultaPlantes } from '../../../components/Formularios/planta/dialog-formulario-plantes-registro/dialog-formulario-plantes.component';
 
 @NgModule({
   declarations: 
   [ AdministradorSistemaComponent, CamasComponent, AsignacionesComponent, HabitacionesComponent, HistorialAltasComponent, PacientesComponent, RolesComponent, UsuariosComponent, IngresosComponent, ConsultasComponent, PlantesComponent ],
   imports: 
-  [ AdministradorSistemaRoute, AdministradorSistemaDashboardComponent, SharedModule ]
+  [ AdministradorSistemaRoute, AdministradorSistemaDashboardComponent, SharedModule, CommonModule ]
 })
 export class AdministradorSistemaModule { }

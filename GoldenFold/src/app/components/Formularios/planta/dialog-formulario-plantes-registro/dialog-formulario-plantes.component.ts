@@ -23,6 +23,8 @@ import { Planta } from '../../../../interface/planta.interface';
   styleUrls: ['./dialog-formulario-plantes.component.css']
 })
 
+
+
 export class DialogFormularioConsultaPlantes {
   constructor(@Inject(MAT_DIALOG_DATA) public data: Planta,
     public dialogRef: MatDialogRef<DialogFormularioConsultaPlantes>) { };

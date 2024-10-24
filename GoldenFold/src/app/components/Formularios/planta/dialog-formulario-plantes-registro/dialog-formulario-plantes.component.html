@@ -1,16 +1,16 @@
-<h2 mat-dialog-title>{{'titul'}}</h2>
+<h2 mat-dialog-title>{{'Agregar planta:'}}</h2>
 <mat-dialog-content>
 
   <form (ngSubmit)="guardar()">
     
     <mat-form-field appearance="outline">
       <mat-label>Planta</mat-label>
-      <input matInput [(ngModel)]="data.piso" name="urgencia" required />
+      <input matInput [(ngModel)]="data.piso" name="Planta" required />
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Habitacions</mat-label>
-      <input matInput [(ngModel)]="data.capacitatHabitacions" name="sintomatologia" required />
+      <input matInput [(ngModel)]="data.capacitatHabitacions" name="Nº Habitacions" required />
     </mat-form-field>
 
   </form>

@@ -27,14 +27,14 @@
             <!-- Listado -->
             <ng-container matColumnDef="habitacions">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Listado habitaciones </th>
-                <td mat-cell *matCellDef="let planta">{{ planta.habitacions }}</td>
+                <td mat-cell *matCellDef="let planta">{{ planta.habitacions.length }}</td>
             </ng-container>
 
             <!-- Acciones -->
             <ng-container matColumnDef="acciones">
                 <th mat-header-cell *matHeaderCellDef> Acciones </th>
                 <td mat-cell *matCellDef="let planta">
-                    <button mat-raised-button color="primary" (click)="modificarPlanta(planta.piso)">
+                    <button mat-raised-button color="primary" (click)="modificarPlanta(planta)">
                         Actualizar
                     </button>
                     <button mat-raised-button color="warn" (click)="deletePlanta(planta.piso)">
