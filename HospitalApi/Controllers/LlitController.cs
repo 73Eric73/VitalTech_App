@@ -166,6 +166,16 @@ namespace HospitalAPI.Controllers
                 return NotFound("No existeix llit amb aquest ID.");
             }
 
+
+            var habitacio = await _bbdd.Habitacions.FirstOrDefaultAsync(p=> p.CodiHabitacio == userLlitDTO.CodiHabitacio);
+            if(habitacio==null)
+            {
+                _logger.LogError("No existeix una habitacio amb aquest codi");
+                return NotFound("No existeix una habitacio amb aquest codi");
+            }
+
+            llit.HabitacioId = habitacio.Id;
+
             _mapper.Map(userLlitDTO, llit);
 
             _bbdd.Llits.Update(llit);
