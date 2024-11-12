@@ -1,4 +1,8 @@
 <div class="container">
   <app-header ></app-header>
+  <div *ngIf="isLoggedIn">
+    Bienvenido, {{ username }}!
+    <button (click)="logout()">Cerrar Sesión</button>
+  </div>
   <router-outlet></router-outlet>
 </div>
