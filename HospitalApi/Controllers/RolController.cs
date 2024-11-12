@@ -54,7 +54,7 @@ namespace HospitalAPI.Controllers
         public async Task<ActionResult<RolReadDTO>> GetRol(string nom)
         {
        
-            var rol = await _bbdd.Rol.Include("Usuarios").FirstOrDefaultAsync(r => r.Nom == nom);//coge el primer resultado que coincida con el id
+            var rol = await _bbdd.Rol.FirstOrDefaultAsync(r => r.Nom == nom);//coge el primer resultado que coincida con el id
             if(rol == null) return NotFound(); //si es null es que no hay un rol con ese id
 
             return Ok(_mapper.Map<RolReadDTO>(rol)); //devuelve un RolReadDTO
@@ -90,7 +90,7 @@ namespace HospitalAPI.Controllers
         public async Task<IActionResult> DeleteRol(string nom)
         {
             
-            var rol = await _bbdd.Rol.Include("Usuarios").FirstOrDefaultAsync(r => r.Nom == nom); //coge el primer rol con ese id
+            var rol = await _bbdd.Rol.FirstOrDefaultAsync(r => r.Nom == nom); //coge el primer rol con ese id
             if(rol==null) //verifica que exista ese rol
             {
                 return NotFound("Error, no existe un rol con ese id"); 
