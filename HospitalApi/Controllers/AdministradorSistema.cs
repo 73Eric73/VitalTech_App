@@ -61,12 +61,12 @@ namespace HospitalAPI
 
             if(!ModelState.IsValid) //comprueba que los datos sean validos
             {
-                _logger.LogError("Els camps no son valids");
-                return BadRequest("Els camps no son valids");
+                _logger.LogError("Els camps no son vàlids");
+                return BadRequest("Els camps no son vàlids");
             }
             
             var adminDuplicado = await _bbdd.AdministradorSistema.FirstOrDefaultAsync(p => p.DNI == nouAministradorSistema.DNI);
-            if(adminDuplicado!=null) //comprueba que no este duplicado
+            if(adminDuplicado != null) //comprueba que no este duplicado
             {
                 _logger.LogError("Ja existeix un Administrador de sistema amb aquest DNI");
                 return BadRequest("Ja existeix un Administrador de sistema amb aquest DNI");
