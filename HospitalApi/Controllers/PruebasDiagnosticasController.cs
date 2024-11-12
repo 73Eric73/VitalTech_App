@@ -145,31 +145,40 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateCon(int id, [FromBody] PruebaDiagnosticaCreateDTO userConDTO)
         {
-            if (userConDTO == null ) return BadRequest("No existeix la ID indicada.");
-
-            var existeixCon = await _bbdd.PruebasDiagnosticas.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
-
-            if (existeixCon == null)
+            if(!ModelState.IsValid)
             {
-                _logger.LogError("No existeix consulta amb aquest ID.");
-                return NotFound("No existeix consulta amb aquest ID.");
+                _logger.LogError("Los datos introducidos son incorrectos.");
+                return BadRequest("Los datos introducidos son incorrectos.");
+            }
+            var pruebaDiagnostica = await _bbdd.PruebasDiagnosticas.FirstOrDefaultAsync(p => p.Id == id);
+            if(pruebaDiagnostica==null){
+                _logger.LogError("No existe una prueba diagnostica con ese id");
+                return BadRequest("No existe una prueba diagnostica con ese id");
+            }
+            var metge = await _bbdd.Metges.FirstOrDefaultAsync(p => p.Id == userConDTO.MetgeId);
+            var enfermer = await _bbdd.Enfermer.FirstOrDefaultAsync(p => p.Id == userConDTO.EnfermerId);
+            var episodiMedic = await _bbdd.EpisodisMedics.FirstOrDefaultAsync(p => p.Id == userConDTO.EpisodiMedicId);
+
+            if(metge==null)
+            {
+                _logger.LogError("No existe un medico con ese ID");
+                return BadRequest("No existe un medico con ese ID");
             }
 
-            PruebasDiagnosticas consulta = _mapper.Map<PruebasDiagnosticas>(userConDTO);
+            if(enfermer==null)
+            {
+                _logger.LogError("No existe un enfermero con ese ID");
+                return BadRequest("No existe un enfermero con ese ID");
+            }
 
-            var metge = await (from p in _bbdd.Metges where p.Id == userConDTO.MetgeId select p).FirstOrDefaultAsync();
-            var enfermer = await (from p in _bbdd.Enfermer where p.Id == userConDTO.EnfermerId select p).FirstOrDefaultAsync();
-            var episodi = await _bbdd.EpisodisMedics.FindAsync(userConDTO.EpisodiMedicId);
+            if(episodiMedic==null)
+            {
+                _logger.LogError("No existe un episodio medico con ese ID");
+                return BadRequest("No existe un episodio medico con ese ID");
+            }
 
-            if (metge == null) return BadRequest("No existeix cap metge amb l'ID indicat.");
-            if(enfermer == null) return BadRequest("No existeix cap enfermer amb l'ID indicat.");
-            if (episodi == null) return BadRequest("No existeix cap episodi mèdic amb l'ID indicat.");
-
-            consulta.EnfermerId = enfermer.Id;
-            consulta.MetgeId = metge.Id;
-            consulta.EpisodiMedicId = episodi.Id;
-
-            _bbdd.PruebasDiagnosticas.Update(consulta);
+            _mapper.Map(userConDTO,pruebaDiagnostica);
+            _bbdd.PruebasDiagnosticas.Update(pruebaDiagnostica);
             await _bbdd.SaveChangesAsync();
             return NoContent();
         }
