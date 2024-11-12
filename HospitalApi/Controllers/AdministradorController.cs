@@ -48,28 +48,28 @@ namespace HospitalAPI.Controllers
             return Ok(_mapper.Map<AdministratiuReadDTO>(admin));
         }
 
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<AdministradorSistemaReadDTO>> PostAdministratiu([FromBody] AdministratiuReadDTO nouAdmin) {
-            Administratiu administratiu = _mapper.Map<Administratiu>(nouAdmin);
+        // [HttpPost]
+        // [ProducesResponseType(StatusCodes.Status200OK)]
+        // [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        // [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        // public async Task<ActionResult<AdministradorSistemaReadDTO>> PostAdministratiu([FromBody] AdministratiuReadDTO nouAdmin) {
+        //     Administratiu administratiu = _mapper.Map<Administratiu>(nouAdmin);
 
-            if (!ModelState.IsValid) {
-                _logger.LogError("Els camps no són vàlids");
-                return BadRequest("Els camps no són vàlids");
-            }
+        //     if (!ModelState.IsValid) {
+        //         _logger.LogError("Els camps no són vàlids");
+        //         return BadRequest("Els camps no són vàlids");
+        //     }
 
-            if (await _bbdd.Administratius.FirstOrDefaultAsync(a => a.DNI == nouAdmin.AdministratiuDni) != null) {
-                _logger.LogError("Ja existeix un Administratiu amb aquest DNI");
-                return BadRequest("Ja existeix un Administratiu amb aquest DNI");
-            }
+        //     if (await _bbdd.Administratius.FirstOrDefaultAsync(a => a.DNI == nouAdmin.AdministratiuDni) != null) {
+        //         _logger.LogError("Ja existeix un Administratiu amb aquest DNI");
+        //         return BadRequest("Ja existeix un Administratiu amb aquest DNI");
+        //     }
 
-            if (await _bbdd.Usuari.FirstOrDefaultAsync(p => p.Id == nouAdmin.AdministratiuId) == null) {
-                _logger.LogError("No existeix un Usuari amb aques ID");
-                return BadRequest("No existeix un Usuari amb aques ID");
-            }
+        //     if (await _bbdd.Usuari.FirstOrDefaultAsync(p => p.Id == nouAdmin.AdministratiuId) == null) {
+        //         _logger.LogError("No existeix un Usuari amb aques ID");
+        //         return BadRequest("No existeix un Usuari amb aques ID");
+        //     }
             
-        }
+        // }
     }
 }
