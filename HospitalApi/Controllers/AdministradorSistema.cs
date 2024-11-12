@@ -160,7 +160,7 @@ namespace HospitalAPI
                 return BadRequest("El DNI no es valid");
             }
             var usuarioEnUso = await _bbdd.AdministradorSistema.FirstOrDefaultAsync(p => p.UsuariId == administradorSistemaUpdateDTO.UsuariId);
-            if(usuarioEnUso != null)
+            if(usuarioEnUso != null && usuarioEnUso.UsuariId != administradorSistemaUpdateDTO.UsuariId )
             {
                 _logger.LogError("Ja existeix un Administrador de Sistema amb aquest Usuari ID");
                 return BadRequest("Ja existeix un Administrador de Sistema amb aquest Usuari ID");
