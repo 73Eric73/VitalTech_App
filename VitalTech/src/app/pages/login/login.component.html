@@ -12,9 +12,9 @@
             </div>
             <form>
                 <label for="username">Usuario</label>
-                <input type="text" id="username" name="username">
+                <input type="text" id="username" placeholder="USUARIO">
                 <label for="password">Contraseña</label>
-                <input type="password" id="password" name="password">
+                <input type="password" id="password" placeholder="CONTRASEÑA">
                 <div class="caption-login">
                     <div class="forgot-password">
                         <a href="#">¿Contraseña olvidada?</a>
@@ -24,7 +24,7 @@
                         <label for="remember">Remember me?</label>
                     </div>
                 </div>
-                <button type="button" (click)="onLogin()">LOGIN</button>
+                <input class="submit" type="button" (click)="login()" value="LOGIN"/>
             </form>
             <div class="register">
                 <span>No tienes una cuenta?</span>
