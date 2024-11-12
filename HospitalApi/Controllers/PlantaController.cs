@@ -45,6 +45,7 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<PlantaReadDTO>> GetPlanta(int id)
         {
+            
             if (id <= 0)
             {
                 _logger.LogError("Error, no existeix la planta amb l'ID indicat.");
