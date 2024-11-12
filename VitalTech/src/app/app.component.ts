@@ -4,6 +4,7 @@ import { NavComponent } from './components/nav/nav.component';
 import { HeaderComponent } from './components/header/header.component';
 import { KeycloakService } from 'keycloak-angular';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
