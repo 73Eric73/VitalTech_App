@@ -6,7 +6,8 @@ namespace HospitalAPI.DTO
     public class EnfermerUpdateDTO
     {
         
-        [RegularExpression(@"^[0-9]{8}[A-Z]$", ErrorMessage = "Error format DNI.")]
+        //[RegularExpression(@"^[0-9]{8}[A-Z]$", ErrorMessage = "Error format DNI.")]
+        [DNIrestriction]
         public string DNI { get; set; } = string.Empty;
         [Required]
         public string Nom { get; set; } = string.Empty;
