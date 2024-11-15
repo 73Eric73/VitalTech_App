@@ -73,7 +73,7 @@ public class EnfermerEspecRestrict : ValidationAttribute
         if (value is string especialitat)
         {
 
-            if (ComprovaLlista(especialitat))
+            if (!ComprovaLlista(especialitat))
             {
 
                 return new ValidationResult("La especialitat no existeix.");
