@@ -13,8 +13,8 @@ import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-enfermers',
-  templateUrl: './enfermers.component.html',
-  styleUrl: './enfermers.component.css',
+  templateUrl: './enfermero.component.html',
+  styleUrl: './enfermero.component.css',
 })
 export class EnfermersComponent {
   displayedColumns: string[] = [
