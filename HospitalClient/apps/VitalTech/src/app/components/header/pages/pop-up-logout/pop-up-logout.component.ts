@@ -31,11 +31,11 @@ export class PopUpLogoutComponent {
   getCookie(name: string) {
     const cookies = document.cookie.split('; '); // Divide todas las cookies por "; "
     for (let i = 0; i < cookies.length; i++) {
-        const [key, value] = cookies[i].split('='); // Divide cada cookie en clave y valor
-        if (key === name) {
-            return value; // Retorna el valor si coincide con el nombre
-        }
+      const [key, value] = cookies[i].split('='); // Divide cada cookie en clave y valor
+      if (key === name) {
+        return value; // Retorna el valor si coincide con el nombre
+      }
     }
     return ""; // Retorna null si no encuentra la cookie
-}
+  }
 }
