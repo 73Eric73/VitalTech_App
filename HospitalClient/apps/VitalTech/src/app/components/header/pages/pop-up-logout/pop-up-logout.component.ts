@@ -24,18 +24,7 @@ export class PopUpLogoutComponent {
     this.oidcSecurityService.logoff().subscribe((result) => {
       console.log(result);
       // Limpiar la sesión al cerrar sesión
-      document.cookie = "name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      this.https.post('/set-session', { value: '' }).subscribe();
     });
-  }
-
-  getCookie(name: string) {
-    const cookies = document.cookie.split('; '); // Divide todas las cookies por "; "
-    for (let i = 0; i < cookies.length; i++) {
-      const [key, value] = cookies[i].split('='); // Divide cada cookie en clave y valor
-      if (key === name) {
-        return value; // Retorna el valor si coincide con el nombre
-      }
-    }
-    return ""; // Retorna null si no encuentra la cookie
   }
 }
