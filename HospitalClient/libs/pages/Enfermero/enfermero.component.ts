@@ -1,15 +1,15 @@
+import { PruebasDialogComponent } from './../../../apps/GoldenFold/src/app/components/popups/pruebas-popup';
+import { DialogFormularioEnfermeroModifComponent } from './../../../apps/GoldenFold/src/app/components/Formularios/Enfermero/dialog-formulario-ingreso-modif/dialog-formulario-enfermero-modif.component';
+import { EnfermeroService } from '../../services/enfermero.service';
+import { SnackbarComponent } from './../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
 import { Component, ViewChild } from '@angular/core';
 import { Enfermero } from '../../interfaces/enfermer.interface';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EnfermeroService } from '../../../../../../services/enfermero.service';
 import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogFormularioEnfermeroModifComponent } from '../../../../../../components/Formularios/Enfermero/dialog-formulario-ingreso-modif/dialog-formulario-enfermero-modif.component';
-import { PruebasDialogComponent } from '../../../../../../components/popups/pruebas-popup';
 
 @Component({
   selector: 'app-enfermers',
