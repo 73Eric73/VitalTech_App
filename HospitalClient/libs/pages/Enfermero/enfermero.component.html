@@ -1,0 +1,136 @@
+<app-administratidor-sistema-dashboard></app-administratidor-sistema-dashboard>
+<div class="enfermeros-section">
+  <h2>Enfermeros</h2>
+  <!--Notificaciones-->
+  <app-snackbar #snackbar></app-snackbar>
+
+  <div class="header-container">
+    <!-- Botón de agregar enfermero-->
+    <div>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="tooggleAgregarEnfermero()"
+      >
+        Agregar Enfermero
+      </button>
+    </div>
+
+    <!--Caja de busqueda-->
+    <div>
+      <app-search-box
+        [searchOptions]="[
+          { label: 'DNI', value: 'dni' },
+          { label: 'Nombre', value: 'nom' },
+          { label: 'Telefono', value: 'telefon' },
+          { label: 'Usuario', value: 'usuariId' },
+          { label: 'Especialidad', value: 'especialitat' }
+        ]"
+        [defaultSearchType]="'dni'"
+        placeholder="Escribe para buscar..."
+        (search)="filtrarEnfermeros($event)"
+      >
+      </app-search-box>
+    </div>
+  </div>
+
+  <!--Mat Table-->
+  <div class="table-container">
+    <table mat-table [dataSource]="enfermeros" matSort class="mat-elevation-z8">
+      <ng-container matColumnDef="dni">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI</th>
+        <td
+          mat-cell
+          *matCellDef="let enfermer"
+          (click)="toogleActualizarEnfermero(enfermer)"
+        >
+          {{ enfermer?.dni }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="nom">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+        <td
+          mat-cell
+          *matCellDef="let enfermer"
+          (click)="toogleActualizarEnfermero(enfermer)"
+        >
+          {{ enfermer?.nom }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="telefon">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono</th>
+        <td
+          mat-cell
+          *matCellDef="let enfermer"
+          (click)="toogleActualizarEnfermero(enfermer)"
+        >
+          {{ enfermer?.telefon }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="usuariId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuario</th>
+        <td
+          mat-cell
+          *matCellDef="let enfermer"
+          (click)="toogleActualizarEnfermero(enfermer)"
+        >
+          {{ enfermer?.usuariId }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="especialitat">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Especialidad</th>
+        <td
+          mat-cell
+          *matCellDef="let enfermer"
+          (click)="toogleActualizarEnfermero(enfermer)"
+        >
+          {{ enfermer?.especialitat }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="pruebasDiagnosticas">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Pruebas Diagnosticas
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let enfermer"
+          style="cursor: pointer; color: blue"
+          (click)="verPruebasDiagnosticas(enfermer)"
+        >
+          {{ enfermer?.pruebasDiagnosticas.length }}
+          {{
+            enfermer?.pruebasDiagnosticas.length == 1
+              ? 'prueba diagnostica'
+              : 'pruebas diagnosticas'
+          }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+        <td mat-cell *matCellDef="let enfermero">
+          <button mat-button color="warn" (click)="deleteEnfermero(enfermero)">
+            Eliminar
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        class="clickable-row"
+      ></tr>
+    </table>
+  </div>
+  <mat-paginator
+    [pageSizeOptions]="[5, 10]"
+    showFirstLastButtons
+  ></mat-paginator>
+</div>
