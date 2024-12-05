@@ -19,7 +19,7 @@ export class HeaderComponent {
   isAuthenticated = false;
   nom = '';
 
-  constructor(private router: Router, public dialog: MatDialog) {}
+  constructor(private router: Router, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.oidcSecurityService
@@ -30,7 +30,7 @@ export class HeaderComponent {
           this.nom = userData?.name || '';
 
           // Guardar el nombre en la sesión
-          this.https.post('/set-session', { value: this.nom }).subscribe();
+          this.setCookie("", "name", this.nom, 1);
         } else {
           this.nom = '';
         }
@@ -42,12 +42,17 @@ export class HeaderComponent {
   }
 
   openDialog(): void {
-    this.https.get<{ value: string }>('/set-session').subscribe((response) => {
-      this.dialog.open(PopUpLogoutComponent, {
-        data: { nom: response.value },
-        width: 'auto',
-        height: 'auto',
-      });
+    this.dialog.open(PopUpLogoutComponent, {
+      width: 'auto',
+      height: 'auto',
     });
   }
+
+  setCookie(path: string, name: string, value: string, days: number) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); // Convertir días a milisegundos
+    const expires = "expires=" + date.toUTCString();
+    document.cookie = `${name}=${value}; ${expires}; SameSite=None; Secure; path=/${path}`;
+  }
+
 }
