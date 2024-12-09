@@ -1,5 +1,5 @@
-import { PlantaService } from './../../../../../../../../../../libs/services/planta.service';
-import { Planta } from './../../../../../../../../../../libs/interfaces/planta.interface';
+import { PlantaService } from '../../services/planta.service';
+import { Planta } from '../../interfaces/planta.interface';
 import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
