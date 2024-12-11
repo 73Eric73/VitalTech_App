@@ -8,7 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { Paciente } from '../interfaces/paciente.interface';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { BaseService } from '../../../../../libs/services/abstract-service.service';
+import { BaseService } from './abstract-service.service';
 
 @Injectable({
   providedIn: 'root',

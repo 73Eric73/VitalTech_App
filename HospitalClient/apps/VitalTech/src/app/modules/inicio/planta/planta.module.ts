@@ -1,3 +1,4 @@
+import { PlantaService } from './../../../../../../../libs/services/planta.service';
 import { PlantaComponent } from './../../../../../../../libs/pages/Planta/planta.component';
 import { NgModule } from '@angular/core';
 import { PlantaRoutes } from './planta-routing.module';
@@ -9,7 +10,7 @@ import { SharedModule } from '../../shared/shared.module';
   declarations: [
     PlantaComponent,
     RegistroPlantaComponent,
-    ModifPlantaComponent,
+    ModifPlantaComponent
   ],
   imports: [PlantaRoutes, SharedModule],
 })

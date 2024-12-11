@@ -1,5 +1,4 @@
-import { PlantaService } from '../../services/planta.service';
-import { Planta } from '../../interfaces/planta.interface';
+
 import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -9,16 +8,13 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SnackbarComponent } from '../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
 import { DialogFormularioConsultaPlantes } from '../../../apps/GoldenFold/src/app/components/Formularios/planta/dialog-formulario-plantes-registro/dialog-formulario-plantes.component';
-import { DialogFormularioConsultaPlantesModificar } from '../../../apps/GoldenFold/src/app/components/Formularios/planta/dialog-formulario-plantes-registro-modificar/dialog-formulario-plantes-modificar.component';
 import { HabitacionesDialogComponent } from '../../../apps/GoldenFold/src/app/components/popups/habitaciones-popup';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Planta } from '../../../../../../../../../../libs/interfaces/planta.interface';
-import {PlantaService} from '../../../../../../../../../../libs/services/planta.service';
 
 @Component({
   selector: 'app-planta',
   templateUrl: './planta.component.html',
-  styleUrls: [],
+  styleUrls: []
 })
 export class PlantaComponent implements OnInit, AfterViewInit {
   @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent;
@@ -138,7 +134,7 @@ export class PlantaComponent implements OnInit, AfterViewInit {
   toggleActualizarPlanta(planta: Planta): void {
     this.plantaSeleccionado = { ...planta };
     this.dialog
-      .open(DialogFormularioConsultaPlantesModificar, {
+      .open(DialogFormularioConsultaPlantes, {
         data: this.plantaSeleccionado,
       })
       .afterClosed()
