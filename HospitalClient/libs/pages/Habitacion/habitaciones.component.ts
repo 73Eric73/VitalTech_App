@@ -1,5 +1,5 @@
 import { DialogActualizarHabitacionComponent } from './../../../apps/GoldenFold/src/app/components/Formularios/Habitacion/dialog-actualizar-habitacion/dialog-actualizar-habitacion.component';
-import { DialogCrearHabitacionComponent } from './../../../apps/GoldenFold/src/app/components/Formularios/Habitacion/dialog-crear-habitacion/dialog-crear-habitacion/dialog-crear-habitacion.component';
+import { DialogCrearHabitacionComponent } from './../../../apps/GoldenFold/src/app/components/Formularios/Habitacion/dialog-crear-habitacion/dialog-crear-habitacion/dialog-crear-habitacion.component'
 import { CamasDialogComponent } from './../../../apps/GoldenFold/src/app/components/popups/camas-popup';
 import { SnackbarComponent } from './../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
 import { HabitacionService } from './../../services/habitacion.service';

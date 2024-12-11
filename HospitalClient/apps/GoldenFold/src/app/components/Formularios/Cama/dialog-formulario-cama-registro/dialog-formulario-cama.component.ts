@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogModule,
@@ -42,12 +42,12 @@ export class DialogFormulariocamaComponent {
   habitaciones: Habitacion[] = [];
   camaForm: FormGroup;
 
-  constructor(
-    private fb: FormBuilder, // Inyectamos el FormBuilder
-    private habitacionService: HabitacionService,
-    @Inject(MAT_DIALOG_DATA) public data: Cama,
-    public dialogRef: MatDialogRef<DialogFormulariocamaComponent>
-  ) {
+  private fb = inject(FormBuilder); // Inyectamos el FormBuilder
+  private habitacionService = inject(HabitacionService);
+  private dialogRef = inject(MatDialogRef<DialogFormulariocamaComponent>);
+  public data: Cama = inject(MAT_DIALOG_DATA); // Usamos inject directamente para MAT_DIALOG_DATA
+
+  constructor() {
     // Inicializamos el FormGroup con los campos requeridos
     this.camaForm = this.fb.group({
       codiLlit: ['', Validators.required],

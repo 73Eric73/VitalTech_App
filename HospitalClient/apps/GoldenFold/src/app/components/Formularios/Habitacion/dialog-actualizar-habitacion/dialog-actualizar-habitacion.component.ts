@@ -1,4 +1,3 @@
-import { PlantaService } from './../../../../../../../../libs/services/planta.service';
 import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
@@ -7,22 +6,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatButton, MatButtonModule } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import {
   MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogClose,
-  MatDialogContent,
-  MatDialogModule,
   MatDialogRef,
-  MatDialogTitle,
+  MatDialogModule,
 } from '@angular/material/dialog';
-import {
-  MatFormField,
-  MatFormFieldModule,
-  MatLabel,
-} from '@angular/material/form-field';
-import { MatInput, MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { Inject } from '@angular/core';
 import { Habitacion } from '../../../../../../../../libs/interfaces/habitacion.interface';
 import { CommonModule } from '@angular/common';
@@ -37,7 +28,7 @@ import { pisoCodigoValidator } from '../../../../validators/habitacion.validator
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    FormsModule, // Necesario para ngModel
+    FormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
@@ -47,32 +38,26 @@ import { pisoCodigoValidator } from '../../../../validators/habitacion.validator
     CommonModule,
   ],
   templateUrl: './dialog-actualizar-habitacion.component.html',
-  styleUrl: './dialog-actualizar-habitacion.component.css',
+  styleUrls: ['./dialog-actualizar-habitacion.component.css'],
 })
 export class DialogActualizarHabitacionComponent {
   habForm!: FormGroup;
   plantas: Planta[] = [];
   editar: boolean = false;
-  constructor(
-    private plantaService: PlantaService,
-    private dialog: MatDialogRef<DialogActualizarHabitacionComponent>,
-    private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: Habitacion
-  ) {}
+
+  private plantaService = inject(PlantaService);
+  private dialogRef = inject(MatDialogRef<DialogActualizarHabitacionComponent>);
+  private fb = inject(FormBuilder);
+  @Inject(MAT_DIALOG_DATA) public data: Habitacion;
 
   ngOnInit(): void {
     this.crearFormularioPlanta();
-    this.showDetails();
+    this.mostrarDetalles();
     this.obtenerPlantas();
 
-    this.habForm.get('codiHabitacio')?.valueChanges.subscribe((value) => {
-      if (value === null || value === '') {
-        // Si el campo está vacío, muestra todas las plantas
-        this.obtenerPlantas();
-      } else {
-        // Filtra plantas según el nuevo valor
-        this.obtenerPlantas();
-      }
+    // Escucha cambios en el campo 'codiHabitacio'
+    this.habForm.get('codiHabitacio')?.valueChanges.subscribe(() => {
+      this.obtenerPlantas();
     });
   }
 
@@ -84,7 +69,8 @@ export class DialogActualizarHabitacionComponent {
     this.editar = true;
     this.habForm.enable();
   }
-  showDetails(): void {
+
+  mostrarDetalles(): void {
     this.editar = false;
     this.habForm.disable();
   }
@@ -107,10 +93,13 @@ export class DialogActualizarHabitacionComponent {
     );
   }
 
-  guardar() {
+  guardar(): void {
     if (this.habForm.valid) {
       const formData = this.habForm.value;
-      this.dialog.close(formData);
+      this.dialogRef.close(formData);
+    } else {
+      // Muestra un mensaje de error si el formulario no es válido
+      this.habForm.markAllAsTouched();
     }
   }
 
@@ -118,6 +107,7 @@ export class DialogActualizarHabitacionComponent {
     this.plantaService.getAll().subscribe({
       next: (data: Planta[]) => {
         const codiHabitacio = this.habForm.get('codiHabitacio')?.value;
+
         if (!codiHabitacio) {
           this.plantas = data;
         } else {
@@ -129,6 +119,9 @@ export class DialogActualizarHabitacionComponent {
               planta.piso === this.habForm.get('plantaId')?.value
           );
         }
+      },
+      error: () => {
+        console.error('Error al obtener las plantas');
       },
     });
   }

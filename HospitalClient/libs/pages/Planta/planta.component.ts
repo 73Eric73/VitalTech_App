@@ -1,4 +1,4 @@
-
+import { PlantaService } from './../../services/planta.service';
 import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -10,6 +10,8 @@ import { SnackbarComponent } from '../../../apps/GoldenFold/src/app/components/s
 import { DialogFormularioConsultaPlantes } from '../../../apps/GoldenFold/src/app/components/Formularios/planta/dialog-formulario-plantes-registro/dialog-formulario-plantes.component';
 import { HabitacionesDialogComponent } from '../../../apps/GoldenFold/src/app/components/popups/habitaciones-popup';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Planta } from '../../interfaces/planta.interface';
+
 
 @Component({
   selector: 'app-planta',
