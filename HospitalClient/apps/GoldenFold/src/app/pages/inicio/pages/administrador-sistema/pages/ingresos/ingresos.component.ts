@@ -1,3 +1,5 @@
+
+import { CamaService } from './../../../../../../../../../../libs/services/cama.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormGroup,
@@ -5,15 +7,14 @@ import {
   Validators,
   FormBuilder,
 } from '@angular/forms';
-import { Ingreso } from '../../../../../../interface/ingreso.interface';
-import { IngresoService } from '../../../../../../services/ingreso.service';
-import { Cama } from '../../../../../../interface/cama.interface';
-import { CamaService } from '../../../../../../services/cama.service';
+import { Ingreso } from '../../../../../../../../../../libs/interfaces/ingreso.interface';
+import { IngresoService } from './../../../../../../../../../../libs/services/ingreso.service';
+import { Cama } from '../../../../../../../../../../libs/interfaces/cama.interface';
+import { EpisodiMedic } from '../../../../../../../../../../libs/interfaces/episodis-medics.interface';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { EpisodiMedic } from '../../../../../../interface/episodis-medics.interface';
-import { EpisodiService } from '../../../../../../services/episodis.service';
+import { EpisodiService } from '../../../../../../../../../../libs/services/episodis.service';
 import { DialogFormularioIngresoModifComponent } from '../../../../../../components/Formularios/Ingreso/dialog-formulario-ingreso-modif/dialog-formulario-ingreso-modif.component';
 import { MatDialog } from '@angular/material/dialog';
 import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Llit } from '../../../../interface/llit.interface';
-import { CamasService } from '../../../../service/camas.service';
+import { Cama } from '../../../../../../../../libs/interfaces/cama.interface';
+import { CamaService } from '../../../../../../../../libs/services/cama.service';
 import { IngressosPopupComponent } from '../../../../components/pop-ups/ingressos-popup/ingressos-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -12,19 +12,19 @@ import Swal from 'sweetalert2';
   styleUrl: './cama.component.css',
 })
 export class CamaComponent {
-  llits: Llit[] = [];
-  originalLlit: Llit[] = [];
+  llits: Cama[] = [];
+  originalLlit: Cama[] = [];
   searchCriteria: string = 'ocupat';
   searchInput: string = '';
 
-  pagedLlits: Llit[] = [];
+  pagedLlits: Cama[] = [];
   currentPage: number = 1;
   totalPages: number = 1;
   itemsPerPage: number = 4;
 
   constructor(
     public dialog: MatDialog,
-    private llitService: CamasService,
+    private llitService: CamaService,
     private router: Router
   ) {}
 
@@ -33,7 +33,7 @@ export class CamaComponent {
   }
 
   loadLlits(): void {
-    this.llitService.getLlits().subscribe((data) => {
+    this.llitService.getAll().subscribe((data) => {
       this.llits = data;
       this.originalLlit = data;
       this.totalPages = Math.ceil(this.llits.length / this.itemsPerPage);
@@ -74,7 +74,7 @@ export class CamaComponent {
 
     this.llits = this.originalLlit;
 
-    let busqueda: Llit[] = [];
+    let busqueda: Cama[] = [];
 
     switch (this.searchCriteria) {
       case 'idLlit':
@@ -131,7 +131,7 @@ export class CamaComponent {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.llitService.deleteLlit(id).subscribe({
+        this.llitService.delete(id).subscribe({
           next: (response) => {
             Swal.fire({
               icon: 'success',

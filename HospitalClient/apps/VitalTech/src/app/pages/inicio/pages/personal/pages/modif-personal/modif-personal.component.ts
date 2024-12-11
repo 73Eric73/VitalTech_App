@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MetgeService } from '../../../../../../service/metge.service';
+import { MedicoService } from '../../../../../../../../../../libs/services/metge.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Metge } from '../../../../../../interface/metge.interface';
+import { Medico } from '../../../../../../../../../../libs/interfaces/medico.interface';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -19,7 +19,7 @@ export class ModifPersonalComponent {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private personalService: MetgeService,
+    private personalService: MedicoService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -33,7 +33,7 @@ export class ModifPersonalComponent {
   ngOnInit(): void {
     this.personalId = String(this.route.snapshot.paramMap.get('id'));
     this.personalService
-      .getPersonalId(this.personalId)
+      .getById(this.personalId)
       .subscribe((personal) => {
         this.modiPersonalForm.patchValue(personal);
         this.dniOriginal = personal.dni;
@@ -41,9 +41,9 @@ export class ModifPersonalComponent {
   }
   onUpdate() {
     if (this.modiPersonalForm.valid) {
-      const updatePersonal: Metge = { ...this.modiPersonalForm.getRawValue() };
+      const updatePersonal: Medico = { ...this.modiPersonalForm.getRawValue() };
       this.personalService
-        .putPacient(updatePersonal, this.dniOriginal)
+        .put(this.dniOriginal, updatePersonal)
         .subscribe({
           next: (response) => {
             Swal.fire({

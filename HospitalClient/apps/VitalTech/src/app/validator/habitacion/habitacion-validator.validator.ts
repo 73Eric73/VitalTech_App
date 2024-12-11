@@ -1,4 +1,5 @@
 import { PlantaService } from './../../../../../../libs/services/planta.service';
+import { HabitacionService } from './../../../../../../libs/services/habitacion.service';
 import {
   AbstractControl,
   ValidatorFn,
@@ -9,17 +10,16 @@ import {
 } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { HabitacioService } from '../../service/habitaciones.service';
 
 export function habidValidator(
-  habitacionService: HabitacioService
+  habitacionService: HabitacionService
 ): AsyncValidatorFn {
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
     if (!control.value) {
       return of(null);
     }
 
-    return habitacionService.getHabitacio(control.value).pipe(
+    return habitacionService.getById(control.value).pipe(
       map((hab) => (hab ? { habIdExists: true } : null)),
       catchError(() => of(null))
     );
@@ -27,7 +27,7 @@ export function habidValidator(
 }
 
 export function habidValidatorModif(
-  habitacionService: HabitacioService,
+  habitacionService: HabitacionService,
   originalHabitacionId: number | null = null
 ): AsyncValidatorFn {
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
@@ -37,7 +37,7 @@ export function habidValidatorModif(
     }
 
     // Si no es el mismo valor, hacemos la validación llamando al servicio
-    return habitacionService.getHabitacio(control.value).pipe(
+    return habitacionService.getById(control.value).pipe(
       map((hab) => (hab ? { habIdExists: true } : null)), // Si existe la habitación, devuelve error
       catchError(() => of(null)) // Si hay un error en la llamada, asumimos que no existe
     );

@@ -23,11 +23,10 @@ import {
   MatLabel,
 } from '@angular/material/form-field';
 import { MatInput, MatInputModule } from '@angular/material/input';
-import { HabitacionService } from '../../../../services/habitacion.service';
 import { Inject } from '@angular/core';
-import { Habitacion } from '../../../../interface/habitacion.interface';
+import { Habitacion } from '../../../../../../../../libs/interfaces/habitacion.interface';
 import { CommonModule } from '@angular/common';
-import { CamaService } from '../../../../services/cama.service';
+import { PlantaService } from '../../../../../../../../libs/services/planta.service';
 import { Planta } from '../../../../../../../../libs/interfaces/planta.interface';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';

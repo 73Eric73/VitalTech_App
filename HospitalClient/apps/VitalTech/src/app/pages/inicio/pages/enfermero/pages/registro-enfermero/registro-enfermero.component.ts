@@ -1,7 +1,7 @@
+import { EnfermeroService } from './../../../../../../../../../../libs/services/enfermero.service';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { EnfermeroService } from '../../../../../../service/enfermero.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -29,7 +29,7 @@ export class RegistroEnfermeroComponent {
   onSubmit() {
     const personalData = this.personalForm.value;
 
-    this.personalService.postPersonal(personalData).subscribe({
+    this.personalService.post(personalData).subscribe({
       next: (response) => {
         Swal.fire({
           icon: 'success',

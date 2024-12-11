@@ -1,11 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import { Enfermero } from '../../../../../../interface/enfermer.interface';
+import { Enfermero } from '../../../../../../../../../../libs/interfaces/enfermer.interface';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EnfermeroService } from '../../../../../../services/enfermero.service';
+import { EnfermeroService } from '../../../../../../../../../../libs/services/enfermero.service';
 import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogFormularioEnfermeroModifComponent } from '../../../../../../components/Formularios/Enfermero/dialog-formulario-ingreso-modif/dialog-formulario-enfermero-modif.component';

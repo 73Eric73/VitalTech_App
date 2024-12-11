@@ -1,9 +1,9 @@
+import { ErrorHandlerService } from './../../../../../libs/services/handle-error.service';
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { catchError, switchMap } from 'rxjs/operators';
 import { throwError, from } from 'rxjs';
-import { ErrorHandlerService } from '../services/handle-error.service'; // Asegúrate de que la ruta es correcta
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const oidcSecurityService = inject(OidcSecurityService);

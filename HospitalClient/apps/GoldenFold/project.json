@@ -34,6 +34,12 @@
             "input": "public/assets",
             "output": "/assets"
           },
+
+          {
+            "glob": "**/*",
+            "input": "public/assets",
+            "output": "/assets"
+          },
           "apps/GoldenFold/src/silent-renew.html"
         ],
         "styles": [

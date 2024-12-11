@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Habitacio } from '../../../../../../interface/habitacio.interface';
-import { HabitacioService } from '../../../../../../service/habitaciones.service';
+import { HabitacionService } from '../../../../../../../../../../libs/services/habitacion.service';
+import { Habitacion } from '../../../../../../../../../../libs/interfaces/habitacion.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import {
@@ -21,7 +21,7 @@ export class ModifHabitacionComponent {
   habitacioId: number = 0;
 
   constructor(
-    private habService: HabitacioService,
+    private habService: HabitacionService,
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
@@ -61,7 +61,7 @@ export class ModifHabitacionComponent {
 
   ngOnInit() {
     this.habitacioId = Number(this.route.snapshot.paramMap.get('id')); // obtiene el id de la consulta desde la url
-    this.habService.getHabitacio(this.habitacioId).subscribe((habitacio) => {
+    this.habService.getById(this.habitacioId).subscribe((habitacio) => {
       this.habitacionForm.patchValue(habitacio);
     });
   }
@@ -76,11 +76,11 @@ export class ModifHabitacionComponent {
       return;
     }
     if (this.habitacionForm.valid) {
-      const updateHabitacion: Habitacio = {
+      const updateHabitacion: Habitacion = {
         ...this.habitacionForm.getRawValue(),
         id: this.habitacioId,
       };
-      this.habService.putHabitcions(updateHabitacion).subscribe({
+      this.habService.put(updateHabitacion.codiHabitacio,updateHabitacion).subscribe({
         // next:() => {
         //   alert('Habitación actualitzada amb exit');
         //   this.router.navigate(['/habitacion']);

@@ -4,7 +4,6 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { Cama } from '../../../../interface/cama.interface';
 import {
   FormBuilder,
   FormGroup,
@@ -15,7 +14,7 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { PruebaDiagnostica } from '../../../../interface/pruebas-diagnosticas.interface';
+import { PruebaDiagnostica } from '../../../../../../../../libs/interfaces/pruebas-diagnosticas.interface';
 import { CustomDateAdapter } from '../../../../custom-date-adapter';
 import {
   DateAdapter,

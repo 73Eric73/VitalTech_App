@@ -1,3 +1,4 @@
+import { PlantaService } from './../../../../../../../../../../libs/services/planta.service';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -39,6 +40,7 @@ export class ModifPlantaComponent {
 
   ngOnInit(): void {
     this.plantaId = Number(this.route.snapshot.paramMap.get('piso')); // obtiene el id de la planta desde la url
+    this.plantaService.getById(this.plantaId).subscribe((planta) => {
     this.plantaService.getById(this.plantaId).subscribe((planta) => {
       this.plantaForm.patchValue(planta);
     });

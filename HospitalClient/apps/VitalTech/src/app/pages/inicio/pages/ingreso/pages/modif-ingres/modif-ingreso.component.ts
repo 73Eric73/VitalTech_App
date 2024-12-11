@@ -1,11 +1,11 @@
+import { Ingreso } from './../../../../../../../../../../libs/interfaces/ingreso.interface';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Ingres } from '../../../../../../interface/ingres.interface';
-import { IngresService } from '../../../../../../service/ingres.service';
+import { IngresoService } from '../../../../../../../../../../libs/services/ingreso.service';
 import Swal from 'sweetalert2';
-import { EpisodiService } from '../../../../../../service/episodis.service';
+import { EpisodiService } from '../../../../../../../../../../libs/services/episodis.service';
 import {
   episodioidexists,
   dataIniciValidator,
@@ -14,7 +14,7 @@ import {
   llitIdexists,
   ingresoEnCama,
 } from '../../../../../../validator/ingreso/ingreso-validator.validator';
-import { CamasService } from '../../../../../../service/camas.service';
+import { CamaService } from '../../../../../../../../../../libs/services/cama.service';
 
 @Component({
   selector: 'app-modif-ingreso',
@@ -27,16 +27,16 @@ export class ModifIngresoComponent {
   sysdate: Date = new Date();
   fechaMin: string = '2020-01-01';
   fechaMax: string = '2030-12-30';
-  originalCamaId: string | null = null;
+  originalCamaId: any;
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private ingresService: IngresService,
+    private ingresService: IngresoService,
     private router: Router,
     private route: ActivatedRoute,
     private episodiService: EpisodiService,
-    private llitService: CamasService
+    private llitService: CamaService
   ) {
     this.ingresId = Number(this.route.snapshot.paramMap.get('id'));
 
@@ -79,7 +79,7 @@ export class ModifIngresoComponent {
     );
 
     this.ingresService
-      .getIngresId(String(this.ingresId))
+      .getById(this.ingresId)
       .subscribe((ingreso) => {
         this.originalCamaId = ingreso.codiLlit;
 
@@ -104,12 +104,12 @@ export class ModifIngresoComponent {
   ngOnInit(): void {
     this.ingresId = Number(this.route.snapshot.paramMap.get('id'));
     this.ingresService
-      .getIngresId(String(this.ingresId))
+      .getById(this.ingresId)
       .subscribe((consulta) => {
-        consulta.dataEntrada = consulta.dataEntrada.split('T')[0];
+        consulta.dataEntrada = consulta.dataEntrada;
 
         if (consulta.dataSortida != null) {
-          consulta.dataSortida = consulta.dataSortida.split('T')[0];
+          consulta.dataSortida = consulta.dataSortida;
         }
 
         this.modiIngresForm.patchValue(consulta);
@@ -121,17 +121,17 @@ export class ModifIngresoComponent {
   }
 
   onUpdate(): void {
+
     if (this.modiIngresForm.invalid) {
       this.modiIngresForm.markAllAsTouched();
       return;
     }
-    if (this.modiIngresForm.valid) {
-      const updatedIngres: Ingres = {
-        ...this.modiIngresForm.getRawValue(),
-        id: this.ingresId,
-      };
 
-      this.ingresService.putIngres(updatedIngres).subscribe({
+    if (this.modiIngresForm.valid) {
+
+      const updatedIngres = {...this.modiIngresForm.getRawValue(), id: this.ingresId};
+
+      this.ingresService.put(updatedIngres.codiLlit , updatedIngres).subscribe({
         next: (response) => {
           Swal.fire({
             icon: 'success',

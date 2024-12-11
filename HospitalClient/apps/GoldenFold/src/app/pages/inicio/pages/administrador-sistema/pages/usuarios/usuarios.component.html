@@ -1,3 +1,4 @@
+<!--
 <app-administratidor-sistema-dashboard></app-administratidor-sistema-dashboard>
 <div class="usuarios-section">
   <br /><br /><br />
@@ -12,7 +13,7 @@
     </div>
     <br />
 
-    <!-- Caja de búsqueda -->
+    <!-- Caja de búsqueda 
     <app-search-box
       [searchOptions]="[
         { label: 'DNI', value: 'DNI' },
@@ -23,10 +24,10 @@
     >
     </app-search-box>
   </div>
-  <!--Tabla Angular Material-->
+  <!--Tabla Angular Material
   <div class="table-container">
     <table mat-table matSort class="mat-elevation-z8">
-      <!--Columna ID-->
+      <!--Columna ID
       <ng-container matColumnDef="dni">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           DNI de usuario
@@ -34,7 +35,7 @@
         <td mat-cell *matCellDef="let usuario">{{ usuario.dni }}</td>
       </ng-container>
 
-      <!--Columna nom-->
+      <!--Columna nom
       <ng-container matColumnDef="nom">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>nom</th>
         <td mat-cell *matCellDef="let usuario">{{ usuario.nom }}</td>
@@ -54,19 +55,19 @@
         </td>
       </ng-container>
 
-      <!--Columna nom Usuario-->
+      <!--Columna nom Usuario
       <!-- <ng-container matColumnDef="nomUsuario">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>nom Usuario</th>
         <td mat-cell *matCellDef="let usuario">{{ usuario.nomUsuario }}</td>
-      </ng-container> -->
+      </ng-container> 
 
-      <!--Columna IdRol-->
+      <!--Columna IdRol
       <!-- <ng-container matColumnDef="IdRol">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>ID Rol</th>
         <td mat-cell *matCellDef="let usuario">{{ usuario.IdRol }}</td>
-      </ng-container> -->
+      </ng-container> 
 
-      <!-- Columna Acciones-->
+      <!-- Columna Acciones
       <ng-container matColumnDef="Actions">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
         <td mat-cell *matCellDef="let usuario"></td>
@@ -75,14 +76,15 @@
       <!-- Header de la tabla 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 
-       Filas de la tabla 
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>-->
+      <!-- Filas de la tabla 
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 
-    <!-- Paginación -->
+    <!-- Paginación 
     <mat-paginator
       [pageSizeOptions]="[8, 15, 25]"
       showFirstLastButtons
     ></mat-paginator>
   </div>
 </div>
+-->

@@ -1,3 +1,4 @@
+import { MedicoService } from './../../../../../../libs/services/metge.service';
 import {
   AbstractControl,
   ValidatorFn,
@@ -8,18 +9,17 @@ import {
 } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { EpisodiService } from '../../service/episodis.service';
-import { MetgeService } from '../../service/metge.service';
+import { EpisodiService } from '../../../../../../libs/services/episodis.service';
 
 export function personalidValidator(
-  personalService: MetgeService
+  personalService: MedicoService
 ): AsyncValidatorFn {
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
     if (!control.value) {
       return of(null);
     }
 
-    return personalService.getPersonalId(control.value).pipe(
+    return personalService.getById(control.value).pipe(
       map((personal) => (personal ? null : { personalNotFound: true })),
       catchError((error) => {
         return of({ personalNotFound: true });
@@ -36,7 +36,7 @@ export function episodiidValidator(
       return of(null);
     }
 
-    return episodiService.getEpisodisId(control.value).pipe(
+    return episodiService.getById(control.value).pipe(
       map((episodi) => (episodi ? null : { episodiNotFound: true })),
       catchError((error) => {
         return of({ episodiNotFound: true });

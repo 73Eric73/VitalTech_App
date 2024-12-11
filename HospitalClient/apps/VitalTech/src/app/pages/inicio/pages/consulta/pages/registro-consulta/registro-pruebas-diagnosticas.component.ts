@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
-import { MetgeService } from '../../../../../../service/metge.service';
+import { MedicoService } from '../../../../../../../../../../libs/services/metge.service';
 import {
   personalidValidator,
   episodiidValidator,
   personalDniLetraCorrect,
 } from '../../../../../../validator/consulta/consulta-validator.validator';
-import { EpisodiService } from '../../../../../../service/episodis.service';
+import { EpisodiService } from '../../../../../../../../../../libs/services/episodis.service';
 
 @Component({
   selector: 'app-registro-consulta',
@@ -21,7 +21,7 @@ export class RegistroConsultaComponent {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private personalService: MetgeService,
+    private personalService: MedicoService,
     private episodiService: EpisodiService
   ) {
     this.consultaForm = this.fb.group(

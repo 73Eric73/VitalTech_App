@@ -1,6 +1,6 @@
+import { PruebasService } from './../../../../../../../../libs/services/pruebas.service';
 import { Component } from '@angular/core';
-import { PruebasDiagnosticasService } from '../../../../service/pruebas-diagnosticas.service';
-import { PruebasDiagnosticas } from '../../../../interface/pruebas-diagnosticas.interface';
+import { PruebaDiagnostica } from '../../../../../../../../libs/interfaces/pruebas-diagnosticas.interface';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import Fuse from 'fuse.js';
@@ -11,29 +11,29 @@ import Fuse from 'fuse.js';
   styleUrls: ['./pruebas-diagnosticas.component.css'],
 })
 export class PruebasDiagnosticasComponent {
-  fuse: Fuse<PruebasDiagnosticas> | null = null;
+  fuse: Fuse<PruebaDiagnostica> | null = null;
 
   constructor(
-    private pruebasDiagnosticasService: PruebasDiagnosticasService,
+    private pruebasDiagnosticasService: PruebasService,
     private router: Router
   ) {}
 
-  consultes: PruebasDiagnosticas[] = [];
+  consultes: PruebaDiagnostica[] = [];
   protected searchId: number = 1;
-  pagedConsultes: PruebasDiagnosticas[] = []; // Array para consultas paginadas
+  pagedConsultes: PruebaDiagnostica[] = []; // Array para consultas paginadas
   searchCriteria: string = 'id'; // Inicializamos con un valor por defecto
   currentPage: number = 1;
   itemsPerPage: number = 4;
   totalPages: number = 1;
   searchInput: string = '';
-  originalConsultes: PruebasDiagnosticas[] = [];
+  originalConsultes: PruebaDiagnostica[] = [];
 
   ngOnInit() {
     this.loadConsultes();
   }
 
   loadConsultes(): void {
-    this.pruebasDiagnosticasService.getConsultes().subscribe((data) => {
+    this.pruebasDiagnosticasService.getAll().subscribe((data) => {
       this.consultes = data;
       this.originalConsultes = data;
       this.totalPages = Math.ceil(this.consultes.length / this.itemsPerPage);
@@ -68,7 +68,7 @@ export class PruebasDiagnosticasComponent {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.pruebasDiagnosticasService.deleteConsulta(id).subscribe({
+        this.pruebasDiagnosticasService.delete(id).subscribe({
           next: () => {
             Swal.fire(
               'Consulta eliminada',

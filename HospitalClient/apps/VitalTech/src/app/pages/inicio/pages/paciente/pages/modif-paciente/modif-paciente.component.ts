@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PacientService } from '../../../../../../service/pacientes.service';
-import { Pacient } from '../../../../../../interface/pacient.interface';
+import { PacienteService } from '../../../../../../../../../../libs/services/paciente.service';
+import { Paciente } from '../../../../../../../../../../libs/interfaces/paciente.interface';
 import Swal from 'sweetalert2';
 import {
   pacienteDniLetraCorrect,
@@ -25,7 +25,7 @@ export class ModifPacienteComponent {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private pacientService: PacientService,
+    private pacientService: PacienteService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -100,7 +100,7 @@ export class ModifPacienteComponent {
 
   ngOnInit(): void {
     this.pacientId = String(this.route.snapshot.paramMap.get('id'));
-    this.pacientService.getPacientId(this.pacientId).subscribe((pacient) => {
+    this.pacientService.getById(this.pacientId).subscribe((pacient) => {
       pacient.birthDay = pacient.birthDay.split('T')[0];
       this.modiPacientForm.patchValue(pacient);
       this.dniSuperOriginal = pacient.dni;
@@ -108,10 +108,10 @@ export class ModifPacienteComponent {
   }
 
   onUpdate(): void {
-    const updatedPacient: Pacient = { ...this.modiPacientForm.getRawValue() };
+    const updatedPacient: Paciente = { ...this.modiPacientForm.getRawValue() };
 
     this.pacientService
-      .putPacient(updatedPacient, this.dniSuperOriginal)
+      .put(this.dniSuperOriginal, updatedPacient)
       .subscribe({
         next: (response) => {
           Swal.fire({

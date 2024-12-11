@@ -4,7 +4,7 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { Cama } from '../../../../interface/cama.interface';
+import { Cama } from '../../../../../../../../libs/interfaces/cama.interface';
 import {
   FormBuilder,
   FormGroup,
@@ -15,8 +15,8 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { Habitacion } from '../../../../interface/habitacion.interface';
-import { HabitacionService } from '../../../../services/habitacion.service';
+import { Habitacion } from '../../../../../../../../libs/interfaces/habitacion.interface';
+import { HabitacionService } from '../../../../../../../../libs/services/habitacion.service';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';

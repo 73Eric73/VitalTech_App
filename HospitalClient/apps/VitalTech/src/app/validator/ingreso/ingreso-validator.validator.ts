@@ -1,3 +1,10 @@
+import { CamaService } from './../../../../../../libs/services/cama.service';
+import { IngresoService } from './../../../../../../libs/services/ingreso.service';
+import { EpisodiService } from './../../../../../../libs/services/episodis.service';
+import { EpisodiMedic } from '../../../../../../libs/interfaces/episodis-medics.interface';
+import { Ingreso } from '../../../../../../libs/interfaces/ingreso.interface';
+import { Cama } from '../../../../../../libs/interfaces/cama.interface';
+
 import {
   AbstractControl,
   ValidatorFn,
@@ -8,9 +15,7 @@ import {
 } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { EpisodiService } from '../../service/episodis.service';
-import { CamasService } from '../../service/camas.service';
-import { IngresService } from '../../service/ingres.service';
+
 
 export function dataIniciFinalValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -58,7 +63,7 @@ export function episodioidexists(
       return of(null);
     }
 
-    return episodiService.getEpisodisId(control.value).pipe(
+    return episodiService.getById(control.value).pipe(
       map((episodio) => (episodio ? null : { episodioIdNotFound: true })),
       catchError((error) => {
         return of({ episodioIdNotFound: true });
@@ -67,13 +72,13 @@ export function episodioidexists(
   };
 }
 
-export function llitIdexists(llitService: CamasService): AsyncValidatorFn {
+export function llitIdexists(llitService: CamaService): AsyncValidatorFn {
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
     if (!control.value) {
       return of(null);
     }
 
-    return llitService.getLlit(control.value).pipe(
+    return llitService.getById(control.value).pipe(
       map((llit) => (llit ? null : { llitIdNotFound: true })),
       catchError((error) => {
         return of({ llitIdNotFound: true });
@@ -82,7 +87,7 @@ export function llitIdexists(llitService: CamasService): AsyncValidatorFn {
   };
 }
 
-export function ingresoEnCama(ingresService: IngresService): AsyncValidatorFn {
+export function ingresoEnCama(ingresService: IngresoService): AsyncValidatorFn {
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
     const formGroup = control as FormGroup;
 
@@ -92,7 +97,7 @@ export function ingresoEnCama(ingresService: IngresService): AsyncValidatorFn {
       return of(null);
     }
 
-    return ingresService.getIngressos().pipe(
+    return ingresService.getAll().pipe(
       map((ingresos) => {
         const ingresosRelacionados = ingresos.filter(
           (ingreso) => ingreso.codiLlit === codiLlit
@@ -109,7 +114,7 @@ export function ingresoEnCama(ingresService: IngresService): AsyncValidatorFn {
 }
 
 export function ingresoEnCamaModif(
-  ingresService: IngresService,
+  ingresService: IngresoService,
   originalCamaId: string
 ): AsyncValidatorFn {
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
@@ -119,7 +124,7 @@ export function ingresoEnCamaModif(
       return of(null);
     }
 
-    return ingresService.getIngressos().pipe(
+    return ingresService.getAll().pipe(
       map((ingresos) => {
         const ingresosRelacionados = ingresos.filter(
           (ingreso) => ingreso.codiLlit === codiLlit

@@ -1,0 +1,115 @@
+@if(isPortGolden){
+  <app-administratidor-sistema-dashboard></app-administratidor-sistema-dashboard>
+} @else {
+  <app-nav></app-nav>
+}
+<div class="pacientes-section">
+  <h2>Pacientes</h2>
+  <app-snackbar #snackbar></app-snackbar>
+
+  <!-- Contenedor para el botón y la caja de búsqueda -->
+  <div class="header-container">
+    <!-- Botón de agregar paciente -->
+    <div>
+      <button mat-raised-button color="primary" (click)="toggleFormularioAgregar()">Agregar Paciente</button>
+    </div>
+    <!-- Caja de búsqueda -->
+    <div class="search-container">
+      <app-search-box
+        [searchOptions]="[
+          { label: 'DNI', value: 'dni' },
+          { label: 'Tarjeta Sanitaria', value: 'numSS' },
+          { label: 'Nombre', value: 'nom' },
+          { label: 'Sexo', value: 'sexe' }
+        ]"
+        [defaultSearchType]="'dni'"
+        placeholder="Escribe para buscar..."
+        (search)="filtrarPacientes($event)"
+      >
+      </app-search-box>
+    </div>
+  </div>
+
+  <!-- Tabla de pacientes con Angular Material -->
+  <div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="mat-table" matSort>
+      <!-- ID Paciente -->
+      <ng-container matColumnDef="dni">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI</th>
+        <td mat-cell *matCellDef="let paciente" (click)="toggleActualizarPaciente(paciente)">
+          {{ paciente.dni }}
+        </td>
+      </ng-container>
+
+      <!-- Nombre -->
+      <ng-container matColumnDef="numSS">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Tarjeta Sanitaria</th>
+        <td mat-cell *matCellDef="let paciente" (click)="toggleActualizarPaciente(paciente)">
+          {{ paciente.numSS }}
+        </td>
+      </ng-container>
+
+      <!-- DNI -->
+      <ng-container matColumnDef="nom">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+        <td mat-cell *matCellDef="let paciente" (click)="toggleActualizarPaciente(paciente)">
+          {{ paciente.nom }} {{ paciente.cognom1 }}
+        </td>
+      </ng-container>
+
+      <!-- Fecha de Nacimiento -->
+      <ng-container matColumnDef="birthDay">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Nacimiento</th>
+        <td mat-cell *matCellDef="let paciente" (click)="toggleActualizarPaciente(paciente)">
+          {{ paciente.birthDay | date : 'dd/MM/yyyy' }}
+        </td>
+      </ng-container>
+
+      <!-- Sexo -->
+      <ng-container matColumnDef="sexe">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Sexo</th>
+        <td mat-cell *matCellDef="let paciente" (click)="toggleActualizarPaciente(paciente)">
+          <ng-container *ngIf="paciente.sexe === 'F'; else masculino">
+            Femenino
+          </ng-container>
+          <ng-template #masculino>Masculino</ng-template>
+        </td>
+      </ng-container>
+
+      <!-- Estado -->
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+        <td mat-cell *matCellDef="let paciente" (click)="toggleActualizarPaciente(paciente)">
+          {{ paciente.estado }}
+        </td>
+      </ng-container>
+
+      <!-- Historial -->
+      <ng-container matColumnDef="episodisMedics">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Historial</th>
+        <td mat-cell *matCellDef="let paciente">
+          <a (click)="verEpisodios(paciente)" style="cursor: pointer; color: blue">
+            {{ paciente.episodisMedics.length }} episodios
+          </a>
+        </td>
+      </ng-container>
+
+      <!-- Acciones -->
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let paciente">
+          <button mat-button color="warn" (click)="borrarPaciente(paciente.dni)">
+            Borrar
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- Header y Rows -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns" class="clickable-row"></tr>
+    </table>
+  </div>
+
+  <!-- Paginación -->
+  <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
+</div>

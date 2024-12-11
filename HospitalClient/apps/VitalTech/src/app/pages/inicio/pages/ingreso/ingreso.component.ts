@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IngresService } from '../../../../service/ingres.service';
-import { Ingres } from '../../../../interface/ingres.interface';
+import { IngresoService } from '../../../../../../../../libs/services/ingreso.service';
+import { Ingreso } from '../../../../../../../../libs/interfaces/ingreso.interface';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
@@ -13,22 +13,22 @@ export class IngresoComponent {
   searchCriteria: string = 'id';
   searchInput: string = '';
 
-  ingressos: Ingres[] = [];
-  originalIngressos: Ingres[] = [];
+  ingressos: Ingreso[] = [];
+  originalIngressos: Ingreso[] = [];
 
-  pagedIngress: Ingres[] = [];
+  pagedIngress: Ingreso[] = [];
   currentPage: number = 1;
   totalPages: number = 1;
   itemsPerPage: number = 4;
 
-  constructor(private ingresService: IngresService, private router: Router) {}
+  constructor(private ingresService: IngresoService, private router: Router) {}
 
   ngOnInit() {
     this.loadIngres();
   }
 
   loadIngres(): void {
-    this.ingresService.getIngressos().subscribe((data) => {
+    this.ingresService.getAll().subscribe((data) => {
       this.ingressos = data;
       this.originalIngressos = data;
       this.totalPages = Math.ceil(this.ingressos.length / this.itemsPerPage);
@@ -67,7 +67,7 @@ export class IngresoComponent {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.ingresService.deleteIngres(id).subscribe({
+        this.ingresService.delete(id).subscribe({
           next: (response) => {
             Swal.fire({
               icon: 'success',
@@ -98,7 +98,7 @@ export class IngresoComponent {
     }
 
     this.ingressos = this.originalIngressos;
-    let busqueda: Ingres[] = [];
+    let busqueda: Ingreso[] = [];
 
     switch (this.searchCriteria) {
       case 'id':
@@ -110,11 +110,9 @@ export class IngresoComponent {
         break;
       case 'entrada':
         for (let i = 0; i < this.ingressos.length; i++) {
-          if (
-            this.ingressos[i].dataEntrada
-              .toLowerCase()
-              .includes(this.searchInput.toLowerCase())
-          ) {
+          const data = (String) (this.ingressos[i].dataEntrada)
+          
+          if (data.toLowerCase().includes(this.searchInput.toLowerCase())) {
             busqueda.push(this.ingressos[i]);
           }
         }
@@ -122,7 +120,7 @@ export class IngresoComponent {
       case 'sortida':
         for (let i = 0; i < this.ingressos.length; i++) {
           if (
-            this.ingressos[i].dataSortida
+            (String) (this.ingressos[i].dataSortida)
               .toLowerCase()
               .includes(this.searchInput.toLowerCase())
           ) {
@@ -140,9 +138,7 @@ export class IngresoComponent {
       case 'llit':
         for (let i = 0; i < this.ingressos.length; i++) {
           if (
-            this.ingressos[i].codiLlit
-              .toLowerCase()
-              .includes(this.searchInput.toLowerCase())
+            (String) (this.ingressos[i].codiLlit) == this.searchInput.toLowerCase()
           ) {
             busqueda.push(this.ingressos[i]);
           }

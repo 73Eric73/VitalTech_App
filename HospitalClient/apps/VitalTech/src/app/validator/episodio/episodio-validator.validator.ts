@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { PacientService } from '../../service/pacientes.service';
+import { PacienteService } from '../../../../../../libs/services/paciente.service';
 
 export function dataIniciFinalValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -49,14 +49,14 @@ export function dataIniciValidator(): ValidatorFn {
 }
 
 export function pacientIdexists(
-  pacientService: PacientService
+  pacientService: PacienteService
 ): AsyncValidatorFn {
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
     if (!control.value) {
       return of(null);
     }
 
-    return pacientService.getPacientId(control.value).pipe(
+    return pacientService.getById(control.value).pipe(
       map((paciente) => (paciente ? null : { pacienteIdNotFound: true })),
       catchError((error) => {
         return of({ pacienteIdNotFound: true });

@@ -1,7 +1,7 @@
 import { RouterLinkActive, RouterLink, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { EnfermeroService } from '../../../../service/enfermero.service';
-import { Enfermer } from '../../../../interface/enfermer.inferface';
+import { EnfermeroService } from '../../../../../../../../libs/services/enfermero.service';
+import { Enfermero } from '../../../../../../../../libs/interfaces/enfermer.interface';
 import { PruebasDiagnosticasPopupComponent } from '../../../../components/pop-ups/pruebas-diagnosticas-popup/pruebas-diagnosticas-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
@@ -14,8 +14,8 @@ import Fuse from 'fuse.js';
   styleUrl: './enfermero.component.css',
 })
 export class EnfermeroComponent {
-  enfermers: Enfermer[] = [];
-  originalEnfermer: Enfermer[] = [];
+  enfermers: Enfermero[] = [];
+  originalEnfermer: Enfermero[] = [];
   searchInput: string = '';
   searchCriteria: string = 'dni';
 
@@ -25,21 +25,21 @@ export class EnfermeroComponent {
     private router: Router
   ) {}
 
-  pagedEnfermers: Enfermer[] = []; // creo otra array de consultas que mostrara solamente aquellas por pagina
+  pagedEnfermers: Enfermero[] = []; // creo otra array de consultas que mostrara solamente aquellas por pagina
 
   // Estas son las variables de paginación
   currentPage: number = 1;
   itemsPerPage: number = 4;
   totalPages: number = 1;
 
-  fuse: Fuse<Enfermer> | null = null;
+  fuse: Fuse<Enfermero> | null = null;
 
   ngOnInit() {
     this.loadPersonal();
   }
 
   loadPersonal(): void {
-    this.enfermeroService.getPersonals().subscribe((data) => {
+    this.enfermeroService.getAll().subscribe((data) => {
       this.enfermers = data;
       this.originalEnfermer = data;
       this.totalPages = Math.ceil(this.enfermers.length / this.itemsPerPage); //calcula cuantas paginas tendra dependiendo de los items que tenga cada una
@@ -142,7 +142,7 @@ export class EnfermeroComponent {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.enfermeroService.deletePacient(idPersonal).subscribe({
+        this.enfermeroService.delete(idPersonal).subscribe({
           next: (response) => {
             Swal.fire({
               icon: 'success',

@@ -1,6 +1,7 @@
+/*
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UsuarioService } from '../../../../../../services/usuario.service';
-import { Personal } from '../../../../../../interface/personal.interface';
+import { UsuarioService } from '../../../../../../../../../../libs/services/usuario.service';
+import { Personal } from '../../../../../../../../../../libs/interfaces/personal.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserValidators } from '../../../../../../validators/usuarios.validators';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,7 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogFormularioUsuarioComponent } from '../../../../../../components/Formularios/Usuario/dialog-formulario-usuario-registro/dialog-formulario-usuario.component';
 import { DialogFormularioUsuarioModifComponent } from '../../../../../../components/Formularios/Usuario/dialog-formulario-usuario-actualizar/dialog-formulario-usuario-modif.component';
 import { UsuariosDialogComponent } from '../../../../../../components/popups/usuarios-popup';
-import { ConsultasDialogComponent } from '../../../../../../components/popups/consultas-popup';
+import { ConsultasDialogComponent } from '../../../../../../../../../../libs/popups/consultas-popup';
 
 @Component({
   selector: 'app-usuarios',
@@ -19,7 +20,7 @@ import { ConsultasDialogComponent } from '../../../../../../components/popups/co
   styleUrls: ['./usuarios.component.css'],
 })
 export class UsuariosComponent {
-  /*
+  
   @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent;  // Referencia al snackbar
 
   //tabla Angular Material
@@ -230,5 +231,6 @@ export class UsuariosComponent {
       data: usuario.consultes
     })
   }
-    */
+   
 }
+   */

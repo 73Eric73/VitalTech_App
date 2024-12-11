@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { PacientService } from '../../../../../../service/pacientes.service';
+import { PacienteService } from '../../../../../../../../../../libs/services/paciente.service';
 import {
   pacienteDniValidator,
   pacienteDniLetraCorrect,
@@ -22,7 +22,7 @@ export class RegistroComponent {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private pacientService: PacientService
+    private pacientService: PacienteService
   ) {
     this.pacientForm = this.fb.group(
       {

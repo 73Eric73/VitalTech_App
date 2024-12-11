@@ -47,6 +47,7 @@ import { MatOptionModule } from '@angular/material/core';
     DialogFormularioComponent,
     MatTableModule,
     MatPaginatorModule,
+    NavComponent,
     MatSortModule,
     MatButtonModule,
     MatDialogModule,
@@ -58,10 +59,12 @@ import { MatOptionModule } from '@angular/material/core';
     SnackbarComponent,
     DialogFormulariocamaComponent,
     MatCheckboxModule,
+    NavComponent,
   ],
   exports: [
     CommonModule,
     FormsModule,
+    NavComponent,
     ReactiveFormsModule,
     MatCardModule,
     NavComponent,
@@ -83,6 +86,7 @@ import { MatOptionModule } from '@angular/material/core';
     SnackbarComponent,
     DialogFormulariocamaComponent,
     MatCheckboxModule,
+    NavComponent
   ],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },

@@ -4,7 +4,7 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { Cama } from '../../../../interface/cama.interface';
+import { Cama } from '../../../../../../../../libs/interfaces/cama.interface';
 import {
   FormBuilder,
   FormGroup,
@@ -18,9 +18,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
-import { Habitacion } from '../../../../interface/habitacion.interface';
-import { HabitacionService } from '../../../../services/habitacion.service';
-
+import { Habitacion } from '../../../../../../../../libs/interfaces/habitacion.interface';
+import { HabitacionService } from '../../../../../../../../libs/services/habitacion.service';
 @Component({
   selector: 'app-dialog-formulario-cama-modif',
   standalone: true,

@@ -2,15 +2,15 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EpisodiService } from '../../../../../../service/episodis.service';
-import { EpisodiMedic } from '../../../../../../interface/episodis-medics.interface';
+import { EpisodiService } from '../../../../../../../../../../libs/services/episodis.service';
+import { EpisodiMedic } from '../../../../../../../../../../libs/interfaces/episodis-medics.interface';
 import Swal from 'sweetalert2';
 import {
   dataIniciFinalValidator,
   dataIniciValidator,
   pacientIdexists,
 } from '../../../../../../validator/episodio/episodio-validator.validator';
-import { PacientService } from '../../../../../../service/pacientes.service';
+import { PacienteService } from '../../../../../../../../../../libs/services/paciente.service';
 
 @Component({
   selector: 'app-modif-episodio',
@@ -27,7 +27,7 @@ export class ModifEpisodiComponent {
     private episodiService: EpisodiService,
     private router: Router,
     private route: ActivatedRoute,
-    private pacienteService: PacientService
+    private pacienteService: PacienteService
   ) {
     this.modifEpisodiForm = this.fb.group(
       {
@@ -89,7 +89,7 @@ export class ModifEpisodiComponent {
 
   ngOnInit(): void {
     this.episodiId = Number(this.route.snapshot.paramMap.get('id'));
-    this.episodiService.getEpisodisId(this.episodiId).subscribe((consulta) => {
+    this.episodiService.getById(this.episodiId).subscribe((consulta) => {
       consulta.dataObertura = consulta.dataObertura.split('T')[0];
 
       if (consulta.dataTancament != null) {
@@ -111,7 +111,7 @@ export class ModifEpisodiComponent {
         id: this.episodiId,
       };
 
-      this.episodiService.putEpisodi(updatedPacient).subscribe({
+      this.episodiService.put(updatedPacient.id,updatedPacient).subscribe({
         next: (response) => {
           Swal.fire({
             icon: 'success',

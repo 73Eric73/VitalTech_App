@@ -5,14 +5,13 @@ import { MatCardModule } from '@angular/material/card';
 import { KeycloakAngularModule } from 'keycloak-angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SharedModule } from './modules/shared/shared.module'; // Importa el SharedModule
+import { SharedModule } from './modules/shared/shared.module';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-import { UnauthorizedComponent } from './pages/inicio/pages/unauthorized/unauthorized.component';
 
 @NgModule({
   imports: [
@@ -31,6 +30,5 @@ import { UnauthorizedComponent } from './pages/inicio/pages/unauthorized/unautho
     MatFormFieldModule,
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-ES' }],
-  declarations: [UnauthorizedComponent],
 })
 export class AppModule {}

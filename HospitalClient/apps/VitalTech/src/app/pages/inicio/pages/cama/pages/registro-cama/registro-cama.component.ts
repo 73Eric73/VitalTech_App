@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CamasService } from '../../../../../../service/camas.service';
+import { CamaService } from '../../../../../../../../../../libs/services/cama.service';
 import {
   camaidValidator,
   codiLlitHabitacioValidator,
   habidValidator,
 } from '../../../../../../validator/cama/cama-validator.validator';
-import { HabitacioService } from '../../../../../../service/habitaciones.service';
+import { HabitacionService } from '../../../../../../../../../../libs/services/habitacion.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -24,8 +24,8 @@ export class RegistroCamaComponent {
     private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
-    private llitService: CamasService,
-    private habitacioService: HabitacioService
+    private llitService: CamaService,
+    private habitacioService: HabitacionService
   ) {
     this.llitForm = this.fb.group(
       {

@@ -1,0 +1,309 @@
+@if(isPortGolden){
+  <app-administratidor-sistema-dashboard></app-administratidor-sistema-dashboard>
+  <div class="medicos-section">
+    <h2>Medicos</h2>
+    <!--Para las notificaciones-->
+    <app-snackbar #snackbar></app-snackbar>
+  
+    <div class="header-container">
+      <!-- Botón de agregar cama -->
+      <div>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="tooggleAgregarMedico()"
+        >
+          Agregar Medico
+        </button>
+      </div>
+  
+      <!--Caja de busqueda-->
+      <div>
+        <app-search-box
+          [searchOptions]="[
+            { label: 'DNI', value: 'dni' },
+            { label: 'Nombre', value: 'nom' },
+            { label: 'Usuario', value: 'usuariId' },
+            { label: 'Teléfono', value: 'telefon' },
+            { label: 'Especialidad', value: 'especialita' }
+          ]"
+          [defaultSearchType]="'dni'"
+          placeholder="Escribe para buscar..."
+          (search)="filtrarMedicos($event)"
+        >
+        </app-search-box>
+      </div>
+    </div>
+  
+    <!--Tabla medicos-->
+    <div class="table-container">
+      <table mat-table [dataSource]="medicos" matSort class="mat-elevation-z8">
+        <ng-container matColumnDef="dni">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI</th>
+          <td
+            mat-cell
+            *matCellDef="let medico"
+            (click)="tooggleActualizarMedico(medico)"
+          >
+            {{ medico?.dni }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="nom">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+          <td
+            mat-cell
+            *matCellDef="let medico"
+            (click)="tooggleActualizarMedico(medico)"
+          >
+            {{ medico?.nom }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="usuariId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuario</th>
+          <td
+            mat-cell
+            *matCellDef="let medico"
+            (click)="tooggleActualizarMedico(medico)"
+          >
+            {{ obtenerNombreUsuario(medico?.usuariId) }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="telefon">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono</th>
+          <td
+            mat-cell
+            *matCellDef="let medico"
+            (click)="tooggleActualizarMedico(medico)"
+          >
+            {{ medico?.telefon }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="especialitat">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Especialidad</th>
+          <td
+            mat-cell
+            *matCellDef="let medico"
+            (click)="tooggleActualizarMedico(medico)"
+          >
+            {{ medico?.especialitat }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="episodiMedics">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Episodios médicos
+          </th>
+          <td mat-cell *matCellDef="let medico">
+            <a
+              (click)="verEpisodiosMedicos(medico)"
+              style="cursor: pointer; color: blue"
+            >
+              {{ medico.episodiMedics.length }}
+              {{
+                medico.episodiMedics.length == 1
+                  ? 'episodio médico'
+                  : 'episodios médicos'
+              }}
+            </a>
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="pruebasDiagnosticas">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Pruebas diagnósticas
+          </th>
+          <td mat-cell *matCellDef="let medico">
+            <a
+              (click)="verPruebasDiagnosticas(medico)"
+              style="cursor: pointer; color: blue"
+            >
+              {{ medico.pruebasDiagnosticas.length }}
+              {{
+                medico.pruebasDiagnosticas.length == 1
+                  ? 'prueba diagnostica'
+                  : 'pruebas diagnosticas'
+              }}
+            </a>
+          </td>
+        </ng-container>
+  
+        <!--Actions column-->
+        <ng-container matColumnDef="Actions">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+          <td mat-cell *matCellDef="let medico">
+            <button mat-button color="warn" (click)="borrarMedico(medico.dni)">
+              Eliminar
+            </button>
+          </td>
+        </ng-container>
+  
+        <!--Header de la tabla-->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  
+        <!--Filas de la tabla-->
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          class="clickable-row"
+        ></tr>
+      </table>
+    </div>
+    <!--Pagination-->
+    <mat-paginator
+      [pageSizeOptions]="[5, 10]"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+} @else{
+  <app-nav></app-nav>
+  <div class="medicos-section" style="background-color: antiquewhite;">
+    <h2>Medicos</h2>
+    <div style="display: flex; align-items: center;">
+    
+        <!-- Header container justo a la derecha del nav -->
+        <div class="header-container" style="display: flex; flex-direction: row; padding-left: 125px;align-items: end;">
+      
+          <!-- Caja de búsqueda -->
+          <div>
+            <app-search-box
+              [searchOptions]="[ { label: 'DNI', value: 'dni' }, { label: 'Nombre', value: 'nom' }, { label: 'Usuario', value: 'usuariId' }, { label: 'Teléfono', value: 'telefon' }, { label: 'Especialidad', value: 'especialita' } ]"
+              [defaultSearchType]="'dni'"
+              placeholder="Escribe para buscar..."
+              (search)="filtrarMedicos($event)"
+            ></app-search-box>
+          </div>
+          <button style="margin-left: 50px; border-radius: 10px;" onclick="window.location.href='https://localhost:4200/inicio/personal/registro-personal';">+ Registrar médico</button>
+        </div>
+    </div>  
+    
+    
+    <div class="texto">
+      <p>Lista de medicos</p>
+    </div>
+    <!--Tabla medicos-->
+    <div class="table-container">
+      <table mat-table [dataSource]="medicos" matSort class="mat-elevation-z8">
+        <ng-container matColumnDef="dni">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: darkcyan;color: white; text-align: center; ">DNI</th>
+          <td
+            mat-cell
+            *matCellDef="let medico"
+          >
+            {{ medico?.dni }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="nom">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: darkcyan;color: white; text-align: center; ">Nombre</th>
+          <td
+            mat-cell
+            *matCellDef="let medico"
+          >
+            {{ medico?.nom }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="usuariId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: darkcyan;color: white; text-align: center; ">Usuario</th>
+          <td
+            mat-cell
+            *matCellDef="let medico"
+          >
+            {{ obtenerNombreUsuario(medico?.usuariId) }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="telefon"> 
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: darkcyan;color: white; text-align: center; ">Teléfono</th>
+          <td
+            mat-cell
+            *matCellDef="let medico"
+          >
+            {{ medico?.telefon }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="especialitat">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: darkcyan;color: white; text-align: center; ">Especialidad</th>
+          <td
+            mat-cell
+            *matCellDef="let medico"
+          >
+            {{ medico?.especialitat }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="episodiMedics">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: darkcyan;color: white; text-align: center; ">Episodios Medicos</th>
+          <td mat-cell *matCellDef="let medico">
+            <a
+              (click)="verEpisodiosMedicos(medico)"
+              style="cursor: pointer; color: blue"
+            >
+              {{ medico.episodiMedics.length }}
+              {{
+                medico.episodiMedics.length == 1
+                  ? 'episodio médico'
+                  : 'episodios médicos'
+              }}
+            </a>
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="pruebasDiagnosticas">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: darkcyan;color: white; text-align: center;">
+            Pruebas diagnósticas
+          </th>
+          <td mat-cell *matCellDef="let medico">
+            <a
+              (click)="verPruebasDiagnosticas(medico)"
+              style="cursor: pointer; color: blue"
+            >
+              {{ medico.pruebasDiagnosticas.length }}
+              {{
+                medico.pruebasDiagnosticas.length == 1
+                  ? 'prueba diagnostica'
+                  : 'pruebas diagnosticas'
+              }}
+            </a>
+          </td>
+        </ng-container>
+  
+        <!--Acciones-->
+        <ng-container matColumnDef="Actions">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: darkcyan;color: white; text-align: center;">Actions</th>
+          <td mat-cell *matCellDef="let medico" style="display: flex; justify-content: space-around; align-items: center;">
+            <button mat-icon-button color="warn" class="actualizar" (click)="tooggleActualizarMedico(medico)">
+              <span style="font-size: 24px;">🔄</span>
+            </button>
+            <button mat-icon-button color="warn" class="eliminar" (click)="borrarMedico(medico.dni)">
+              <span style="font-size: 24px;">❎</span>
+            </button>
+          </td>
+        </ng-container>
+        
+        
+        
+        <!--Header de la tabla-->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  
+        <!--Filas de la tabla-->
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          style="background-color: white;"
+          class="clickable-row"
+        ></tr>
+      </table>
+    </div>
+    <!--Pagination-->
+    <mat-paginator class="pagination"  style="background-color: antiquewhite;"
+      [pageSizeOptions]="[5, 10]"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+}

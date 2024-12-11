@@ -1,3 +1,4 @@
+import { PacienteService } from './../../../../../../libs/services/paciente.service';
 import {
   AbstractControl,
   ValidatorFn,
@@ -8,17 +9,16 @@ import {
 } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { PacientService } from '../../service/pacientes.service';
 
 export function pacienteDniValidator(
-  pacienteService: PacientService
+  pacienteService: PacienteService
 ): AsyncValidatorFn {
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
     if (!control.value) {
       return of(null);
     }
 
-    return pacienteService.getPacientId(control.value).pipe(
+    return pacienteService.getById(control.value).pipe(
       map((pacient) => (pacient ? { pacientIdExists: true } : null)),
       catchError(() => of(null))
     );
@@ -114,14 +114,14 @@ export function pacienteSSLetrasNumValidators(): ValidatorFn {
   };
 }
 export function pacienteSSValidator(
-  pacienteService: PacientService
+  pacienteService: PacienteService
 ): AsyncValidatorFn {
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
     if (!control.value) {
       return of(null);
     }
 
-    return pacienteService.getPacients().pipe(
+    return pacienteService.getAll().pipe(
       map((pacients) => {
         const pacient = pacients.find((p) => p.numSS === control.value);
         return pacient ? { pacientSSExistes: true } : null;
@@ -131,7 +131,7 @@ export function pacienteSSValidator(
   };
 }
 export function pacienteDniValidatorModif(
-  pacienteService: PacientService,
+  pacienteService: PacienteService,
   dniOriginal: string
 ): AsyncValidatorFn {
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
@@ -139,7 +139,7 @@ export function pacienteDniValidatorModif(
       return of(null);
     }
 
-    return pacienteService.getPacientId(control.value).pipe(
+    return pacienteService.getById(control.value).pipe(
       map((pacient) => (pacient ? { pacientIdExistes: true } : null)),
       catchError(() => of(null))
     );

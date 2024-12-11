@@ -1,0 +1,19 @@
+h1 {
+  margin: auto;
+  text-align: center;
+  padding: 20px;
+  color: #1c6dc2;
+}
+
+div {
+  width: 100%;
+  height: 2vh;
+  min-height: 500px;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-x: auto;
+}
+
+table {
+  border-radius: 10%;
+}

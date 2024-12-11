@@ -1,13 +1,13 @@
+import { MetgesComponent } from './../../../../../../../libs/pages/Medico/metges.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { PersonalComponent } from '../../../pages/inicio/pages/personal/personal.component';
 import { ModifPersonalComponent } from '../../../pages/inicio/pages/personal/pages/modif-personal/modif-personal.component';
 import { RegistroPersonalComponent } from '../../../pages/inicio/pages/personal/pages/registro-personal/registro-personal.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: PersonalComponent,
+    component: MetgesComponent,
   },
   {
     path: 'modif-personal/:id',

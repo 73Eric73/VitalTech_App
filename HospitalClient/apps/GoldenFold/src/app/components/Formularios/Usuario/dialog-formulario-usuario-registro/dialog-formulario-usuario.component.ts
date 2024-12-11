@@ -4,7 +4,7 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { Personal } from '../../../../interface/personal.interface';
+import { Personal } from '../../../../../../../../libs/interfaces/personal.interface';
 import {
   FormBuilder,
   FormGroup,

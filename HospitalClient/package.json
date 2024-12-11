@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "npm install && concurrently \"nx serve VitalTech --watch --ssl -o --configuration=development --host=127.0.0.1\" \"nx serve GoldenFold --watch --ssl -o --configuration=development --host=127.0.0.2\"",
-    "ultraStart": "npm install && concurrently --kill-others \"nx serve VitalTech --watch --ssl -o --configuration=development --host=127.0.0.1\" \"nx serve GoldenFold --watch --ssl -o --configuration=development --host=127.0.0.2\" \"dotnet watch --project ../HospitalApi/HospitalApi.csproj run\"",
+    "start": "npm install && concurrently \"nx serve VitalTech  --ssl -o --host=127.0.0.1\" \"nx serve GoldenFold --ssl -o --host=127.0.0.2\"",
+    "ultraStart": "npm install && concurrently \"nx serve VitalTech --ssl -o --host=127.0.0.1\" \"nx serve GoldenFold --ssl -o --host=127.0.0.2\" \"dotnet watch --project ../HospitalApi/HospitalApi.csproj run\"",
     "build": "nx build",
     "watch": "nx build --watch --configuration development",
     "test": "nx test"
@@ -46,12 +46,12 @@
     },
     "API": {
       "root": "../HospitalApi",
-      "sourceRoot": "../HospitalApi/src", 
+      "sourceRoot": "../HospitalApi/src",
       "projectType": "application",
       "architect": {
         "build": {
           "options": {
-            "outputPath": "dist/apps/API" 
+            "outputPath": "dist/apps/API"
           }
         },
         "serve": {
@@ -65,7 +65,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^18.0.0",
-    "@angular/cdk": "^18.2.9",
+    "@angular/cdk": "^18.2.14",
     "@angular/common": "^18.0.0",
     "@angular/compiler": "^18.0.0",
     "@angular/core": "^18.0.0",
@@ -90,11 +90,11 @@
     "@angular-devkit/build-angular": "^18.0.6",
     "@angular-devkit/core": "^18.2.3",
     "@angular-devkit/schematics": "^18.2.3",
-    "@angular/cli": "^18.2.3",
+    "@angular/cli": "^18.2.12",
     "@angular/compiler-cli": "^18.0.0",
-    "@nx/angular": "20.1.4",
-    "@nx/js": "20.1.4",
-    "@nx/workspace": "20.1.4",
+    "@nx/angular": "20.2.1",
+    "@nx/js": "20.2.1",
+    "@nx/workspace": "20.2.1",
     "@schematics/angular": "^18.2.3",
     "@swc-node/register": "~1.9.1",
     "@swc/core": "~1.5.7",
@@ -108,7 +108,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "nx": "20.1.4",
+    "nx": "20.2.1",
     "prettier": "^2.6.2",
     "typescript": "~5.4.2"
   }

@@ -62,15 +62,9 @@
       <tbody>
         <tr *ngFor="let consulta of pagedConsultes">
           <td>{{ consulta.id }}</td>
-          <td>{{ consulta.urgencia }}</td>
-          <td>{{ consulta.sintomatologia }}</td>
-          <td *ngIf="consulta.recepta != null; else pte">
-            {{ consulta.recepta }}
-          </td>
           <ng-template #pte>
             <td>Pendiente</td>
           </ng-template>
-          <td>{{ consulta.dniPersonal }}</td>
           <td>{{ consulta.episodiMedicId }}</td>
           <div class="botones">
             <button

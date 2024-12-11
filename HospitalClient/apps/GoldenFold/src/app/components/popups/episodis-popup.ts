@@ -1,10 +1,10 @@
+import { PacienteService } from './../../../../../../libs/services/paciente.service';
+import { Paciente } from './../../../../../../libs/interfaces/paciente.interface';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
-import { PacienteService } from '../../services/paciente.service';
-import { Paciente } from '../../interface/paciente.interface';
 
 @Component({
   selector: 'app-episodis-dialog',

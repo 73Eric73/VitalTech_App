@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { EnfermeroService } from '../../../../../../service/enfermero.service';
+import { EnfermeroService } from '../../../../../../../../../../libs/services/enfermero.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Enfermer } from '../../../../../../interface/enfermer.inferface';
+import { Enfermero } from '../../../../../../../../../../libs/interfaces/enfermer.interface';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -33,7 +33,7 @@ export class ModifEnfermeroComponent {
   ngOnInit(): void {
     this.personalId = String(this.route.snapshot.paramMap.get('id'));
     this.personalService
-      .getPersonalId(this.personalId)
+      .getById(this.personalId)
       .subscribe((personal) => {
         this.modiPersonalForm.patchValue(personal);
         this.dniOriginal = personal.dni;
@@ -41,11 +41,11 @@ export class ModifEnfermeroComponent {
   }
   onUpdate() {
     if (this.modiPersonalForm.valid) {
-      const updatePersonal: Enfermer = {
+      const updatePersonal: Enfermero = {
         ...this.modiPersonalForm.getRawValue(),
       };
       this.personalService
-        .putPacient(updatePersonal, this.dniOriginal)
+        .put(this.dniOriginal, updatePersonal)
         .subscribe({
           next: (response) => {
             Swal.fire({

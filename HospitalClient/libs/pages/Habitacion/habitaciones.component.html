@@ -1,0 +1,222 @@
+@if (!isPortVitalTech){
+<app-administratidor-sistema-dashboard></app-administratidor-sistema-dashboard>
+<div class="habitaciones-section">
+  <h2>Habitaciones</h2>
+  <app-snackbar #snackbar></app-snackbar>
+
+  <!--Botón de agregar habitación -->
+  <div class="filter-container">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="toggleFormularioAgregar()"
+    >
+      Agregar Habitación
+    </button>
+
+    <!--Buscador-->
+    <div>
+      <app-search-box
+        [searchOptions]="[
+          { label: 'Habitación', value: 'habitacion' },
+          { label: 'Capacitat cames', value: 'capacitat' },
+          { label: 'Planta', value: 'planta' }
+        ]"
+        [defaultSearchType]="'habitacion'"
+        placeholder="Escribe para buscar..."
+        (search)="aplicarFiltro($event)"
+      >
+      </app-search-box>
+    </div>
+  </div>
+
+  <!-- Tabla de Angular Material -->
+  <div class="table-container">
+    <app-snackbar></app-snackbar>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+      <!-- Columna num habitaciones -->
+      <ng-container matColumnDef="NumeroHabitacion">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Número de habitación
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let habitacion"
+          (click)="toggleActualizarHabitacion(habitacion)"
+        >
+          {{ habitacion.codiHabitacio }}
+        </td>
+      </ng-container>
+
+      <!-- Columna cap CapCamas -->
+      <ng-container matColumnDef="CapCamas">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Capacidad de camas
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let habitacion"
+          (click)="toggleActualizarHabitacion(habitacion)"
+        >
+          {{ habitacion.capacitatLlits }}
+        </td>
+      </ng-container>
+
+      <!-- Columna plantas -->
+      <ng-container matColumnDef="Planta">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Planta</th>
+        <td
+          mat-cell
+          *matCellDef="let habitacion"
+          (click)="toggleActualizarHabitacion(habitacion)"
+        >
+          {{ habitacion.plantaId }}
+        </td>
+      </ng-container>
+
+      <!--Columna camas-->
+      <ng-container matColumnDef="Camas">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Camas</th>
+        <td mat-cell *matCellDef="let habitacion">
+          <a
+            (click)="verCamas(habitacion)"
+            style="cursor: pointer; color: blue"
+          >
+            {{ habitacion.llits.length }} camas
+          </a>
+        </td>
+      </ng-container>
+
+      <!-- Columna Accion -->
+      <ng-container matColumnDef="Acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let habitacion">
+          <button
+            mat-button
+            color="warn"
+            (click)="borrarHabitacion(habitacion.codiHabitacio)"
+          >
+            Borrar
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- Filas de la tabla -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        class="clickable-row"
+      ></tr>
+    </table>
+  </div>
+
+  <!-- Paginación -->
+  <mat-paginator
+    [pageSizeOptions]="[5, 10]"
+    showFirstLastButtons
+  ></mat-paginator>
+</div>
+} @else {
+  <app-nav></app-nav>
+  <div class ="fondo">
+    <div class="search-container">
+      <app-search-box
+        [searchOptions]="[
+          { label: 'Habitación', value: 'habitacion' },
+          { label: 'Capacitat cames', value: 'capacitat' },
+          { label: 'Planta', value: 'planta' }
+        ]"
+        [defaultSearchType]="'habitacion'"
+        placeholder="Escribe para buscar..."
+        (search)="aplicarFiltro($event)"
+      >
+      </app-search-box>
+      <div class="registro" >
+        <button id="registrarse" style="border-radius: 10px;">
+          <a (click)="navigateToRegistroHabitacion()">
+            + Registrar nueva habitación</a
+          >
+        </button>
+      </div>
+    </div>
+  <div class="texto">
+    <p>Lista de habitaciones</p>
+  </div>
+  <div class="table-container">
+    <app-snackbar></app-snackbar>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+      <!-- Columna num habitaciones -->
+      <ng-container matColumnDef="NumeroHabitacion">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="cell">
+          Número de habitación
+        </th>
+        <td mat-cell *matCellDef="let habitacion"> {{ habitacion.codiHabitacio }}</td>
+      </ng-container>
+
+      <!-- Columna cap CapCamas -->
+      <ng-container matColumnDef="CapCamas">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="cell">
+          Capacidad de camas
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let habitacion"
+        >
+          {{ habitacion.capacitatLlits }}
+        </td>
+      </ng-container>
+
+      <!-- Columna plantas -->
+      <ng-container matColumnDef="Planta">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="cell">Planta</th>
+        <td
+          mat-cell
+          *matCellDef="let habitacion"
+        >
+          {{ habitacion.plantaId }}
+        </td>
+      </ng-container>
+
+      <!--Columna camas-->
+      <ng-container matColumnDef="Camas">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="cell">Camas</th>
+        <td mat-cell *matCellDef="let habitacion">
+          <a
+            (click)="verCamas(habitacion)"
+            style="cursor: pointer; color: blue"
+          >
+            {{ habitacion.llits.length }} camas
+          </a>
+        </td>
+      </ng-container>
+
+      <!-- Columna Accion -->
+      <ng-container matColumnDef="Acciones">
+        <th mat-header-cell *matHeaderCellDef class="cell">Acciones</th>
+        <td mat-cell *matCellDef="let habitacion" class ="botones">
+          <button class = "actualizar" mat-icon-button (click)="toggleActualizarHabitacion(habitacion)">
+            🔄
+          </button>
+          <button class = "eliminar" mat-icon-button (click)="borrarHabitacion(habitacion.codiHabitacio)">
+            ❎
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- Filas de la tabla -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        style="background-color: white;"
+      ></tr>
+    </table>
+
+  </div>
+  <mat-paginator
+  [pageSizeOptions]="[5, 10, 25, 100]"
+  showFirstLastButtons
+></mat-paginator>
+</div>
+}

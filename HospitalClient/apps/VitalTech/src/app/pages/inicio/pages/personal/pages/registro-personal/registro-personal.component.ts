@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MetgeService } from '../../../../../../service/metge.service';
+import { MedicoService } from '../../../../../../../../../../libs/services/metge.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,7 +15,7 @@ export class RegistroPersonalComponent {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private personalService: MetgeService
+    private personalService: MedicoService
   ) {
     this.personalForm = this.fb.group({
       dni: [''],
@@ -29,7 +29,7 @@ export class RegistroPersonalComponent {
   onSubmit() {
     const personalData = this.personalForm.value;
 
-    this.personalService.postPersonal(personalData).subscribe({
+    this.personalService.post(personalData).subscribe({
       next: (response) => {
         Swal.fire({
           icon: 'success',

@@ -1,6 +1,7 @@
+import { UsuarioService } from './../../../../../libs/services/usuario.service';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { catchError, debounceTime, map, Observable, of, switchMap } from 'rxjs';
-import { UsuarioService } from '../services/usuario.service';
+
 
 export class UserValidators {
   // Validador asíncrono para nombre usuario

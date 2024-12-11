@@ -12,6 +12,8 @@ import { DialogFormularioConsultaPlantes } from '../../../apps/GoldenFold/src/ap
 import { DialogFormularioConsultaPlantesModificar } from '../../../apps/GoldenFold/src/app/components/Formularios/planta/dialog-formulario-plantes-registro-modificar/dialog-formulario-plantes-modificar.component';
 import { HabitacionesDialogComponent } from '../../../apps/GoldenFold/src/app/components/popups/habitaciones-popup';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Planta } from '../../../../../../../../../../libs/interfaces/planta.interface';
+import {PlantaService} from '../../../../../../../../../../libs/services/planta.service';
 
 @Component({
   selector: 'app-planta',

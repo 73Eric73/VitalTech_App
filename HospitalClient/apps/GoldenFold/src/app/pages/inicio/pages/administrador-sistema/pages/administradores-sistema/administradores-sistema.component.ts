@@ -1,14 +1,13 @@
+import { AdministradorSistemaService } from './../../../../../../../../../../libs/services/administrador-sistema.service';
 import { Component, ViewChild } from '@angular/core';
-import { AdministradorSistema } from '../../../../../../interface/administrador-sistema.interface';
 import { MatTableDataSource } from '@angular/material/table';
 import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { AdministradorSistemaService } from '../../../../../../services/administrador-sistema.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { retry } from 'rxjs';
-
+import { AdministradorSistema } from '../../../../../../../../../../libs/interfaces/administrador-sistema.interface';
 @Component({
   selector: 'app-administradores-sistema',
   templateUrl: './administradores-sistema.component.html',

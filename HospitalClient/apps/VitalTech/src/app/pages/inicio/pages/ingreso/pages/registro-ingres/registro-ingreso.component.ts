@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { IngresService } from '../../../../../../service/ingres.service';
+import { IngresoService } from '../../../../../../../../../../libs/services/ingreso.service';
 import Swal from 'sweetalert2';
-import { EpisodiService } from '../../../../../../service/episodis.service';
+import { EpisodiService } from '../../../../../../../../../../libs/services/episodis.service';
 import {
   episodioidexists,
   dataIniciValidator,
@@ -11,7 +11,7 @@ import {
   llitIdexists,
   ingresoEnCama,
 } from '../../../../../../validator/ingreso/ingreso-validator.validator';
-import { CamasService } from '../../../../../../service/camas.service';
+import { CamaService } from '../../../../../../../../../../libs/services/cama.service';
 
 @Component({
   selector: 'app-registro-ingreso',
@@ -27,9 +27,9 @@ export class RegistroIngresoComponent {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private ingresService: IngresService,
+    private ingresService: IngresoService,
     private episodiService: EpisodiService,
-    private llitService: CamasService
+    private llitService: CamaService
   ) {
     this.ingresForm = this.fb.group(
       {

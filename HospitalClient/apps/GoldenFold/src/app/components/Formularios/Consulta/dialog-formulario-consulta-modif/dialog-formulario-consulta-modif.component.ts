@@ -14,7 +14,7 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { PruebaDiagnostica } from '../../../../interface/pruebas-diagnosticas.interface';
+import { PruebaDiagnostica } from '../../../../../../../../libs/interfaces/pruebas-diagnosticas.interface';
 
 @Component({
   selector: 'app-dialog-formulario-consulta-modif',

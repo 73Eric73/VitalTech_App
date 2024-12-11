@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Llit } from '../../../../../../interface/llit.interface';
-import { CamasService } from '../../../../../../service/camas.service';
+import { Cama } from '../../../../../../../../../../libs/interfaces/cama.interface';
+import { CamaService } from '../../../../../../../../../../libs/services/cama.service';
 import Swal from 'sweetalert2';
 import {
   habidValidator,
@@ -11,8 +11,8 @@ import {
   camaIdValidatorModif,
   camaOcupadaPaciente,
 } from '../../../../../../validator/cama/cama-validator.validator';
-import { HabitacioService } from '../../../../../../service/habitaciones.service';
-import { IngresService } from '../../../../../../service/ingres.service';
+import { HabitacionService } from '../../../../../../../../../../libs/services/habitacion.service';
+import { IngresoService } from '../../../../../../../../../../libs/services/ingreso.service';
 
 @Component({
   selector: 'app-modif-cama',
@@ -30,9 +30,9 @@ export class ModifCamaComponent {
     private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
-    private llitService: CamasService,
-    private habitacioService: HabitacioService,
-    private ingresService: IngresService
+    private llitService: CamaService,
+    private habitacioService: HabitacionService,
+    private ingresService: IngresoService
   ) {
     const camaId = this.route.snapshot.paramMap.get('id') || '';
     this.originalCamaId = camaId;
@@ -73,7 +73,7 @@ export class ModifCamaComponent {
 
   ngOnInit(): void {
     this.llitId = String(this.route.snapshot.paramMap.get('id')); // obtiene el id de la planta desde la url
-    this.llitService.getLlit(this.llitId).subscribe((llit) => {
+    this.llitService.getById(this.llitId).subscribe((llit) => {
       this.llitForm.patchValue(llit);
       this.codiLlitGigaOriginal = llit.codiLlit;
     });
@@ -85,12 +85,12 @@ export class ModifCamaComponent {
       return;
     }
     if (this.llitForm.valid) {
-      const updatedLlit: Llit = {
+      const updatedLlit: Cama = {
         ...this.llitForm.getRawValue(),
         id: this.llitId,
       };
       this.llitService
-        .putLlit(updatedLlit, this.codiLlitGigaOriginal)
+        .put(this.codiLlitGigaOriginal, updatedLlit)
         .subscribe({
           next: (response) => {
             Swal.fire({

@@ -4,7 +4,7 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { Paciente } from '../../../../interface/paciente.interface';
+import { Paciente } from '../../../../../../../../libs/interfaces/paciente.interface';
 import {
   FormBuilder,
   FormGroup,

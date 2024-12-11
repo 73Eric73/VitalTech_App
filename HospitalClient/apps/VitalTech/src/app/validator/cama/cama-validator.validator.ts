@@ -8,25 +8,25 @@ import {
 } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { CamasService } from '../../service/camas.service';
-import { HabitacioService } from '../../service/habitaciones.service';
-import { PacientService } from '../../service/pacientes.service';
-import { IngresService } from '../../service/ingres.service';
+import { CamaService } from '../../../../../../libs/services/cama.service';
+import { HabitacionService } from '../../../../../../libs/services/habitacion.service';
+import { PacienteService } from '../../../../../../libs/services/paciente.service';
+import { IngresoService } from '../../../../../../libs/services/ingreso.service';
 
-export function camaidValidator(camasService: CamasService): AsyncValidatorFn {
+export function camaidValidator(camasService: CamaService): AsyncValidatorFn {
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
     if (!control.value) {
       return of(null);
     }
 
-    return camasService.getLlit(control.value).pipe(
+    return camasService.getById(control.value).pipe(
       map((llit) => (llit ? { camaIdExists: true } : null)),
       catchError(() => of(null))
     );
   };
 }
 export function habidValidator(
-  habitacionService: HabitacioService
+  habitacionService: HabitacionService
 ): AsyncValidatorFn {
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
     if (!control.value) {
@@ -35,7 +35,7 @@ export function habidValidator(
 
     const id = +control.value;
 
-    return habitacionService.getHabitacio(id).pipe(
+    return habitacionService.getById(id).pipe(
       map((habitacion) => (habitacion ? null : { habitacionIdNotFound: true })),
       catchError((error) => {
         return of({ habitacionIdNotFound: true });
@@ -66,7 +66,7 @@ export function codiLlitHabitacioValidator(): ValidatorFn {
 }
 
 export function camaIdValidatorModif(
-  camasService: CamasService,
+  camasService: CamaService,
   originalId: string | null = null
 ): AsyncValidatorFn {
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
@@ -74,7 +74,7 @@ export function camaIdValidatorModif(
       return of(null);
     }
 
-    return camasService.getLlit(control.value).pipe(
+    return camasService.getById(control.value).pipe(
       map((llit) => (llit ? { camaIdExists: true } : null)),
       catchError(() => of(null))
     );
@@ -82,7 +82,7 @@ export function camaIdValidatorModif(
 }
 
 export function camaOcupadaPaciente(
-  ingresoService: IngresService
+  ingresoService: IngresoService
 ): AsyncValidatorFn {
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
     const formGroup = control as FormGroup;
@@ -100,7 +100,7 @@ export function camaOcupadaPaciente(
       return of(null);
     }
 
-    return ingresoService.getIngressos().pipe(
+    return ingresoService.getAll().pipe(
       map((ingresos) => {
         const ingresosRelacionados = ingresos.filter(
           (ingreso) => ingreso.codiLlit === codiLlit

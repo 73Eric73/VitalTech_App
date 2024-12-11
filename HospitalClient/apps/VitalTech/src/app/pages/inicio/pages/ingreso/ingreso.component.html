@@ -56,9 +56,9 @@
       <tbody>
         <tr *ngFor="let ingres of pagedIngress">
           <td>{{ ingres.id }}</td>
-          <td>{{ ingres.dataEntrada.split('T')[0] }}</td>
+          <td>{{ ingres.dataEntrada }}</td>
           <td *ngIf="ingres.dataSortida != null; else pte">
-            {{ ingres.dataSortida.split('T')[0] }}
+            {{ ingres.dataSortida}}
           </td>
           <ng-template #pte>
             <td>Pendiente</td>

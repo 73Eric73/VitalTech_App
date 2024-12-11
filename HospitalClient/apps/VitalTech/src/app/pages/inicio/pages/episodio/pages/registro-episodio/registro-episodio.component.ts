@@ -7,8 +7,8 @@ import {
   dataIniciValidator,
   buit,
 } from '../../../../../../validator/episodio/episodio-validator.validator';
-import { PacientService } from '../../../../../../service/pacientes.service';
-import { Pacient } from '../../../../../../interface/pacient.interface';
+import { PacienteService } from '../../../../../../../../../../libs/services/paciente.service';
+import { Paciente } from '../../../../../../../../../../libs/interfaces/paciente.interface';
 
 @Component({
   selector: 'app-registro-episodio',
@@ -17,13 +17,13 @@ import { Pacient } from '../../../../../../interface/pacient.interface';
 })
 export class RegistroEpisodiComponent {
   episodiForm: FormGroup;
-  pacients: Pacient[] = [];
+  pacients: Paciente[] = [];
   dropdownVisible = false;
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private pacienteService: PacientService
+    private pacienteService: PacienteService
   ) {
     this.episodiForm = this.fb.group(
       {
@@ -69,7 +69,7 @@ export class RegistroEpisodiComponent {
       }
     });
 
-    this.pacienteService.getPacients().subscribe((data) => {
+    this.pacienteService.getAll().subscribe((data) => {
       this.pacients = data;
       this.pacients.sort((a, b) => a.nom.localeCompare(b.nom));
     });

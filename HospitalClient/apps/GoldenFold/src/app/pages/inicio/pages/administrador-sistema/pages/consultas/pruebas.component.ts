@@ -1,3 +1,4 @@
+import { PruebasService } from './../../../../../../../../../../libs/services/pruebas.service';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
 import { MatTableDataSource } from '@angular/material/table';
@@ -7,9 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { DialogFormularioConsultaComponent } from '../../../../../../components/Formularios/Consulta/dialog-formulario-consulta-registro/dialog-formulario-consulta.component';
 import { DialogFormularioConsultaModifComponent } from '../../../../../../components/Formularios/Consulta/dialog-formulario-consulta-modif/dialog-formulario-consulta-modif.component';
-import { PruebaDiagnostica } from '../../../../../../interface/pruebas-diagnosticas.interface';
-import { PruebasService } from '../../../../../../services/pruebas.service';
-
+import { PruebaDiagnostica } from '../../../../../../../../../../libs/interfaces/pruebas-diagnosticas.interface';
 @Component({
   selector: 'app-preubas',
   templateUrl: './pruebas.component.html',

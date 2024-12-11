@@ -3,10 +3,10 @@ import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
-import { PacienteService } from '../../services/paciente.service';
-import { Paciente } from '../../interface/paciente.interface';
-import { PruebaDiagnostica } from '../../interface/pruebas-diagnosticas.interface';
-import { PruebasService } from '../../services/pruebas.service';
+import { Paciente } from '../../../../../../libs/interfaces/paciente.interface';
+import { PacienteService } from '../../../../../../libs/services/paciente.service';
+import { PruebaDiagnostica } from '../../../../../../libs/interfaces/pruebas-diagnosticas.interface';
+import { PruebasService } from '../../../../../../libs/services/pruebas.service';
 
 @Component({
   selector: 'app-pruebas-dialog',
